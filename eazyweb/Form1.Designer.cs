@@ -29,18 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.新規作成ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.開くToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.group_tag = new System.Windows.Forms.GroupBox();
             this.button_swap = new System.Windows.Forms.Button();
             this.groupBody = new System.Windows.Forms.GroupBox();
             this.property_text = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button_body2 = new System.Windows.Forms.Button();
             this.groupHead = new System.Windows.Forms.GroupBox();
             this.button_head2 = new System.Windows.Forms.Button();
@@ -53,55 +47,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button_tag = new System.Windows.Forms.Button();
             this.listItem = new System.Windows.Forms.ListBox();
-            this.menuStrip1.SuspendLayout();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.group_tag.SuspendLayout();
             this.groupBody.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             this.groupHead.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ファイルToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1684, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // ファイルToolStripMenuItem
-            // 
-            this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.新規作成ToolStripMenuItem,
-            this.開くToolStripMenuItem,
-            this.保存ToolStripMenuItem});
-            this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
-            this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.ファイルToolStripMenuItem.Text = "ファイル";
-            // 
-            // 新規作成ToolStripMenuItem
-            // 
-            this.新規作成ToolStripMenuItem.Name = "新規作成ToolStripMenuItem";
-            this.新規作成ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.新規作成ToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.新規作成ToolStripMenuItem.Text = "新規作成";
-            // 
-            // 開くToolStripMenuItem
-            // 
-            this.開くToolStripMenuItem.Name = "開くToolStripMenuItem";
-            this.開くToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.開くToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.開くToolStripMenuItem.Text = "開く";
-            this.開くToolStripMenuItem.Click += new System.EventHandler(this.開くToolStripMenuItem_Click);
-            // 
-            // 保存ToolStripMenuItem
-            // 
-            this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
-            this.保存ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.保存ToolStripMenuItem.Text = "保存";
-            this.保存ToolStripMenuItem.Click += new System.EventHandler(this.保存ToolStripMenuItem_Click);
             // 
             // imageList1
             // 
@@ -139,9 +89,10 @@
             // groupBody
             // 
             this.groupBody.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.groupBody.Controls.Add(this.button_body2);
             this.groupBody.Controls.Add(this.property_text);
             this.groupBody.Controls.Add(this.label2);
-            this.groupBody.Controls.Add(this.tableLayoutPanel1);
+            this.groupBody.Controls.Add(this.flowLayoutPanel1);
             this.groupBody.Location = new System.Drawing.Point(0, 57);
             this.groupBody.Name = "groupBody";
             this.groupBody.Size = new System.Drawing.Size(309, 445);
@@ -170,32 +121,13 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "プロパティ";
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.button_body2, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 14);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(160, 421);
-            this.tableLayoutPanel1.TabIndex = 2;
-            // 
             // button_body2
             // 
             this.button_body2.BackColor = System.Drawing.Color.DodgerBlue;
             this.button_body2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.button_body2.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_body2.ForeColor = System.Drawing.Color.White;
-            this.button_body2.Location = new System.Drawing.Point(3, 3);
+            this.button_body2.Location = new System.Drawing.Point(3, 21);
             this.button_body2.Name = "button_body2";
             this.button_body2.Size = new System.Drawing.Size(122, 54);
             this.button_body2.TabIndex = 1;
@@ -290,7 +222,7 @@
             this.button_html.BackColor = System.Drawing.Color.Yellow;
             this.button_html.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.button_html.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_html.Location = new System.Drawing.Point(0, 10);
+            this.button_html.Location = new System.Drawing.Point(3, 10);
             this.button_html.Name = "button_html";
             this.button_html.Size = new System.Drawing.Size(122, 41);
             this.button_html.TabIndex = 1;
@@ -349,6 +281,14 @@
             this.listItem.TabIndex = 5;
             this.listItem.SelectedIndexChanged += new System.EventHandler(this.listItem_SelectedIndexChanged);
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 81);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(128, 354);
+            this.flowLayoutPanel1.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -357,20 +297,15 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_edit);
             this.Controls.Add(this.button_tag);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.listItem);
             this.Controls.Add(this.group_tag);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "かんたんウェブ君～HTMLをまなぼう！～";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.group_tag.ResumeLayout(false);
             this.groupBody.ResumeLayout(false);
             this.groupBody.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
             this.groupHead.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -378,10 +313,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem ファイルToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 新規作成ToolStripMenuItem;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.GroupBox group_tag;
         private System.Windows.Forms.Button button_body1;
@@ -395,14 +326,12 @@
         private System.Windows.Forms.GroupBox groupBody;
         private System.Windows.Forms.ListBox listItem;
         private System.Windows.Forms.Button button_edit;
-        private System.Windows.Forms.ToolStripMenuItem 開くToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 保存ToolStripMenuItem;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button button_body2;
         private System.Windows.Forms.TextBox property_text;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button_delete;
         private System.Windows.Forms.Button button_swap;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 

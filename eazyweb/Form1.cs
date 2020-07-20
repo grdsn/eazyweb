@@ -35,11 +35,15 @@ namespace eazyweb
         public int addTextboxCount = 0;
         public int addButtonCount = 0;
 
+        public int cont1 = 0;
+        public int cont2 = 0;
+
+        Control ctrl1;
+        Control ctrl2;
 
         //ボタンイベントの有無
         public Boolean button_event = false;
-
-        public String openFile = "";
+       
         public Form1()
         {
             InitializeComponent();
@@ -72,7 +76,6 @@ namespace eazyweb
                     this.groupHead.Visible = false;
                     this.groupBody.Visible = true;
                     this.groupBody.BackColor = Color.FromArgb(192, 255, 255);
-                    this.tableLayoutPanel1.BackColor = Color.FromArgb(192, 255, 255);
                     this.button_delete.Visible = false;
                     this.button_swap.Visible = false;
                     contflg = 0;
@@ -82,7 +85,6 @@ namespace eazyweb
                     this.groupHead.Visible = false;
                     this.groupBody.Visible = true;
                     this.groupBody.BackColor = Color.FromName("Red");
-                    this.tableLayoutPanel1.BackColor = Color.FromName("Red");
                     contflg = 0;
                     break;
                 //編集ボタン
@@ -90,7 +92,6 @@ namespace eazyweb
                     this.groupHead.Visible = false;
                     this.groupBody.Visible = true;
                     this.groupBody.BackColor = Color.FromArgb(0, 192, 0);
-                    this.tableLayoutPanel1.BackColor = Color.FromArgb(0, 192, 0);
                     this.button_delete.Visible = true;
                     this.button_swap.Visible = true;
                     contflg = 0;
@@ -182,8 +183,7 @@ namespace eazyweb
             //---
 
             //---BODYタグツリーのスクロール
-            this.tableLayoutPanel1.VerticalScroll.Visible = true;
-            this.tableLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.VerticalScroll.Visible = true;
             //---
         }
         //---
@@ -197,253 +197,113 @@ namespace eazyweb
                 //見出し
                 case 0:
                     addH1Count++;                                                                   //見出し個数のカウント
-                    Button button_h1 = new Button();                                                //新規ボタンのインスタンス
-                    button_h1.Location = new Point(0, 20 + addBodyCount * 78);                      //ボタンの配置場所の設定
+                    Button button_h1 = new Button();                                                //新規ボタンのインスタンス                    //ボタンの配置場所の設定
                     button_h1.Size = new Size(122, 54);                                             //ボタンのサイズ
                     button_h1.ForeColor = Color.FromName("White");                                  //ボタンの文字色の設定
                     button_h1.BackColor = Color.FromName("DodgerBlue");                             //ボタンの背景色の設定
                     button_h1.Text = "<H1>";                                                        //ボタンのテキスト
                     button_h1.Font = new Font("MS UI Gothic", 18,FontStyle.Bold);                   //フォントの設定
                     button_h1.Name = "button_h1_" + addH1Count;                                     //ボタンのNameの設定
-                    if (tableLayoutPanel1.GetControlFromPosition(0, addBodyCount) == null)          //tableLayoutPanel1に空きがあればボタンを配置
-                    {
-                        tableLayoutPanel1.Controls.Add(button_h1);
-                    }
-                    else
-                    {                                                                               //なければ行の追加
-                        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 70));
-                        tableLayoutPanel1.Controls.Add(button_h1);
-                    }
+                    flowLayoutPanel1.Controls.Add(button_h1);
                     addBodyCount++;                                                                 //BODYの個数のカウント
-                    dic.Add(button_h1.Name, addBodyCount);
-                    button_h1.Click += btnclick(button_h1.Name,"h1",dic[button_h1.Name], addH1Count);                  //追加したボタンにイベントを追加
-                    //this.listItem.Visible = false;                                                //追加完了後、部品リストを非表示
+                    dic.Add(button_h1.Name, flowLayoutPanel1.Controls.GetChildIndex(button_h1));
+                    button_h1.Click += btnclick(button_h1.Name,"h1",dic[button_h1.Name], addH1Count,button_h1);                  //追加したボタンにイベントを追加
                     break;
                 //文
                 case 1:
                     addPCount++;
                     Button button_p = new Button();
-                    button_p.Location = new Point(0, 20 + addBodyCount * 78);
                     button_p.Size = new Size(122, 54);
                     button_p.ForeColor = Color.FromName("White");
                     button_p.BackColor = Color.FromName("DodgerBlue");
                     button_p.Text = "<P>";
                     button_p.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
                     button_p.Name = "button_p_" + addPCount;
-                    if (tableLayoutPanel1.GetControlFromPosition(addBodyCount, 0) == null)
-                    {
-                        tableLayoutPanel1.Controls.Add(button_p);
-                    }
-                    else
-                    {
-                        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 70));
-                        tableLayoutPanel1.Controls.Add(button_p);
-                    }
-
+                    flowLayoutPanel1.Controls.Add(button_p);
                     addBodyCount++;
-                    dic.Add(button_p.Name, addBodyCount);
-                    button_p.Click += btnclick(button_p.Name,"p", dic[button_p.Name], addPCount);
-                    
-                    //this.listItem.Visible = false;
+                    dic.Add(button_p.Name, flowLayoutPanel1.Controls.GetChildIndex(button_p));
+                    button_p.Click += btnclick(button_p.Name,"p", dic[button_p.Name], addPCount, button_p);
                     break;
                 //表
                 case 2:
                     addTableCount++;
                     Button button_table = new Button();
-                    button_table.Location = new Point(0, 20 + addBodyCount * 78);
                     button_table.Size = new Size(122, 54);
                     button_table.ForeColor = Color.FromName("White");
                     button_table.BackColor = Color.FromName("DodgerBlue");
                     button_table.Text = "<TABLE>";
                     button_table.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
                     button_table.Name = "button_table_" + addTableCount;
-                    if (tableLayoutPanel1.GetControlFromPosition(addBodyCount, 0) == null)
-                    {
-                        tableLayoutPanel1.Controls.Add(button_table);
-                    }
-                    else
-                    {
-                        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 70));
-                        tableLayoutPanel1.Controls.Add(button_table);
-                    }
+                    flowLayoutPanel1.Controls.Add(button_table);
                     addBodyCount++;
-                    dic.Add(button_table.Name, addBodyCount);
-                    button_table.Click += btnclick(button_table.Name,"table" , dic[button_table.Name], addTableCount);
-                    //this.listItem.Visible = false;
+                    dic.Add(button_table.Name, flowLayoutPanel1.Controls.GetChildIndex(button_table));
+                    button_table.Click += btnclick(button_table.Name,"table" , dic[button_table.Name], addTableCount, button_table);
                     break;
                 //画像
                 case 3:
                     addImgCount++;
                     Button button_img = new Button();
-                    button_img.Location = new Point(0, 20 + addBodyCount * 78);
                     button_img.Size = new Size(122, 54);
                     button_img.ForeColor = Color.FromName("White");
                     button_img.BackColor = Color.FromName("DodgerBlue");
                     button_img.Text = "<IMG>";
                     button_img.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
                     button_img.Name = "button_img_" + addImgCount;
-                    if (tableLayoutPanel1.GetControlFromPosition(addBodyCount, 0) == null)
-                    {
-                        tableLayoutPanel1.Controls.Add(button_img);
-                    }
-                    else
-                    {
-                        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 70));
-                        tableLayoutPanel1.Controls.Add(button_img);
-                    }
+                    flowLayoutPanel1.Controls.Add(button_img);
                     addBodyCount++;
-                    dic.Add(button_img.Name, addBodyCount);
-                    button_img.Click += btnclick(button_img.Name,"img", dic[button_img.Name], addImgCount);
-                    //this.listItem.Visible = false;
+                    dic.Add(button_img.Name, flowLayoutPanel1.Controls.GetChildIndex(button_img));
+                    button_img.Click += btnclick(button_img.Name,"img", dic[button_img.Name], addImgCount, button_img);
                     break;
                 //URL
                 case 4:
                     addUrlCount++;
                     Button button_url = new Button();
-                    button_url.Location = new Point(0, 20 + addBodyCount * 78);
                     button_url.Size = new Size(122, 54);
                     button_url.ForeColor = Color.FromName("White");
                     button_url.BackColor = Color.FromName("DodgerBlue");
                     button_url.Text = "<URL>";
                     button_url.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
                     button_url.Name = "button_url_" + addUrlCount;
-                    if (tableLayoutPanel1.GetControlFromPosition(addBodyCount, 0) == null)
-                    {
-                        tableLayoutPanel1.Controls.Add(button_url);
-                    }
-                    else
-                    {
-                        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 70));
-                        tableLayoutPanel1.Controls.Add(button_url);
-                    }
+                    flowLayoutPanel1.Controls.Add(button_url);
                     addBodyCount++;
-                    dic.Add(button_url.Name, addBodyCount);
-                    button_url.Click += btnclick(button_url.Name,"url", dic[button_url.Name], addUrlCount);
-                    //this.listItem.Visible = false;
+                    dic.Add(button_url.Name, flowLayoutPanel1.Controls.GetChildIndex(button_url));
+                    button_url.Click += btnclick(button_url.Name,"url", dic[button_url.Name], addUrlCount, button_url);
                     break;
                 //テキストボックス
                 case 5:
                     addTextboxCount++;
                     Button button_textBox = new Button();
-                    button_textBox.Location = new Point(0, 20 + addBodyCount * 78);
                     button_textBox.Size = new Size(122, 54);
                     button_textBox.ForeColor = Color.FromName("White");
                     button_textBox.BackColor = Color.FromName("DodgerBlue");
                     button_textBox.Text = "<TEXTBOX>";
                     button_textBox.Font = new Font("MS UI Gothic", 12, FontStyle.Bold);
                     button_textBox.Name = "button_textbox_" + addTextboxCount;
-                    if (tableLayoutPanel1.GetControlFromPosition(addBodyCount, 0) == null)
-                    {
-                        tableLayoutPanel1.Controls.Add(button_textBox);
-                    }
-                    else
-                    {
-                        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 70));
-                        tableLayoutPanel1.Controls.Add(button_textBox);
-                    }
+                    flowLayoutPanel1.Controls.Add(button_textBox);
                     addBodyCount++;
-                    dic.Add(button_textBox.Name, addBodyCount);
-                    button_textBox.Click += btnclick(button_textBox.Name,"textbox", dic[button_textBox.Name], addTextboxCount);
-                    //this.listItem.Visible = false;
+                    dic.Add(button_textBox.Name, flowLayoutPanel1.Controls.GetChildIndex(button_textBox));
+                    button_textBox.Click += btnclick(button_textBox.Name,"textbox", dic[button_textBox.Name], addTextboxCount,button_textBox);
                     break;
                 //ボタン
                 case 6:
                     addButtonCount++;
                     Button button_Button = new Button();
-                    button_Button.Location = new Point(0, 20 + addBodyCount * 78);
                     button_Button.Size = new Size(122, 54);
                     button_Button.ForeColor = Color.FromName("White");
                     button_Button.BackColor = Color.FromName("DodgerBlue");
                     button_Button.Text = "<BUTTON>";
                     button_Button.Font = new Font("MS UI Gothic", 12, FontStyle.Bold);
                     button_Button.Name = "button_button_" + addButtonCount;
-                    if (tableLayoutPanel1.GetControlFromPosition(addBodyCount, 0) == null)
-                    {
-                        tableLayoutPanel1.Controls.Add(button_Button);
-                    }
-                    else
-                    {
-                        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 70));
-                        tableLayoutPanel1.Controls.Add(button_Button);
-                    }
+                    flowLayoutPanel1.Controls.Add(button_Button);
                     addBodyCount++;
-                    dic.Add(button_Button.Name, addBodyCount);
-                    button_Button.Click += btnclick(button_Button.Name,"button_button", dic[button_Button.Name], addButtonCount);
-                    //this.listItem.Visible = false;
+                    dic.Add(button_Button.Name, flowLayoutPanel1.Controls.GetChildIndex(button_Button));
+                    button_Button.Click += btnclick(button_Button.Name,"button_button", dic[button_Button.Name], addButtonCount, button_Button);
                     break;
                 default:
                     break;
             }
         }
-
-
-
-        private void 開くToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //OpenFileDialogクラスのインスタンスを作成
-            OpenFileDialog ofd = new OpenFileDialog();
-
-            //はじめのファイル名を指定する
-            //はじめに「ファイル名」で表示される文字列を指定する
-            ofd.FileName = "index.html";
-            //はじめに表示されるフォルダを指定する
-            //指定しない（空の文字列）の時は、現在のディレクトリが表示される
-            ofd.InitialDirectory = @"C:\Users\s3a2\source\repos\eazyweb\eazyweb\bin\Debug\HTML";
-            //[ファイルの種類]に表示される選択肢を指定する
-            //指定しないとすべてのファイルが表示される
-            ofd.Filter = "HTMLファイル(*.html;*.htm)|*.html;*.htm|すべてのファイル(*.*)|*.*";
-            //[ファイルの種類]ではじめに選択されるものを指定する
-            //1番目の「html」が選択されているようにする
-            ofd.FilterIndex = 1;
-            //タイトルを設定する
-            ofd.Title = "開くファイルを選択してください";
-            //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
-            ofd.RestoreDirectory = true;
-            //存在しないファイルの名前が指定されたとき警告を表示する
-            //デフォルトでTrueなので指定する必要はない
-            ofd.CheckFileExists = true;
-            //存在しないパスが指定されたとき警告を表示する
-            //デフォルトでTrueなので指定する必要はない
-            ofd.CheckPathExists = true;
-
-            //ダイアログを表示する
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                //OKボタンがクリックされたとき、選択されたファイル名を表示する
-                //Console.WriteLine(ofd.FileName);
-                openFile = ofd.FileName;
-            }
-            //ファイルを読み込む用
-            try
-            {
-                System.IO.Stream stream;
-                stream = ofd.OpenFile();
-                if (stream != null)
-                {
-                    //内容を読み込み、表示する
-                    System.IO.StreamReader sr =
-                        new System.IO.StreamReader(stream);
-                    //this.editBox.Text = sr.ReadToEnd();
-                    //閉じる
-                    sr.Close();
-                    stream.Close();
-                }
-            }catch(Exception ex)
-            {
-
-            }
-        }
-
-        private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // 文字コードを指定
-            Encoding enc = Encoding.GetEncoding("UTF-8");
-
-            // テキストを書き込む
-            //File.WriteAllText(openFile, this.editBox.Text,enc);
-
-
-        }
+        //---
 
         //---編集ボタンを押したとき
         private void button_edit_Click_1(object sender, EventArgs e)
@@ -451,27 +311,21 @@ namespace eazyweb
 
             flg = 6;
             ButtonVisible();
-            //MessageBox.Show();
         }
         //---
 
-        //---動的ボタンのイベント(引数：部品名、部品の種類)
-        private EventHandler btnclick(String name,String getkind,int BodyCount, int itemCount)
+        //---動的ボタンのイベント(引数：部品名、部品の種類、追加カウント、アイテムカウント、部品)
+        private EventHandler btnclick(String name,String getkind,int BodyCount, int itemCount, Control cont)
         {               
             return delegate (object sender2, EventArgs e2)
             {
-                String nname = "";
-                String cntName = name;
-                String kind = getkind;
-                int temp = 0;
-                
 
                 if (flg != 6 && flg != 5 && flg != 7)
                 {   //通常時の処理
                     //選択したボタンのプロパティを表示
 
 
-                    switch (kind)
+                    switch (getkind)
                     {
                         case "h1":
                             property_text.Text = "name : " + name;
@@ -480,24 +334,24 @@ namespace eazyweb
                             property_text.Text = "name :" + name;
                             break;
                         case "table":
-
+                            property_text.Text = "name :" + name;
                             break;
                         case "img":
-
+                            property_text.Text = "name :" + name;
                             break;
                         case "url":
-
+                            property_text.Text = "name :" + name;
                             break;
                         case "textbox":
-
+                            property_text.Text = "name :" + name;
                             break;
                         case "button_button":
-
+                            property_text.Text = "name :" + name;
                             break;
                         default:
                             break;
                     }
-                }
+                }//通常時
                 else if (flg == 5)
                 {   //押されている
 
@@ -508,7 +362,7 @@ namespace eazyweb
                         control.Dispose();
                         dic.Remove(name);
                         addBodyCount--;
-                        switch (kind)
+                        switch (getkind)
                         {
                             case "h1":
                                 addH1Count--;
@@ -540,63 +394,44 @@ namespace eazyweb
                     }
 
 
-                }
+                }//flg==5
                 else if (flg == 7)
                 {
-
+                    
                     //入れ替え処理
                     switch (contflg)
                     {   //選択回数
                         //1回目
                         case 0:
-                            dic[name] = BodyCount - 1;
-                            name1 = name;
-                            //BCount1 = BodyCount;        //一個目の部品の行目を保持
-                            //ItemCount1 = itemCount;     //わからないやつ   
-                            contflg = 1;                //選択カウントを設定
+                            name1 = name;   //一つ目の部品の名前を保持
+                            ctrl1 = cont;   //部品のコントロールを保持
+                            cont1 = flowLayoutPanel1.Controls.GetChildIndex(cont);  //部品のFlowLayoutPanelのインデックスを保持
+                            contflg = 1;    //選択カウントを設定
                             break;
                         //二回目
                         case 1:
-                            dic[name] = BodyCount - 1;
-                            name2 = name;
-                            //BCount2 = BodyCount;        //二個目の部品の行目を保持  
-                            //ItemCount2 = itemCount;     //わからないやつ
-                            SwapControls(this.tableLayoutPanel1, new TableLayoutPanelCellPosition(0, dic[name1]), new TableLayoutPanelCellPosition(0, dic[name2]));       //入れ替えメソッドの実行                            
-                            BCount1 = 0;                //
-                            BCount2 = 0;                //初期化
-                            contflg = 0;                //
-                            SwapCellPosition(name1, name2); //セルポジションの入れ替え関数
+                            ctrl2 = cont;   //二つ目の部品の名前を保持
+                            cont2 = flowLayoutPanel1.Controls.GetChildIndex(cont);  //部品のFlowLayoutPanelのインデックスを保持
+                            SwapControls(cont1,cont2,ctrl1,ctrl2);       //入れ替えメソッドの実行
+                            contflg = 0;    //初期化
                             break;
                         default:
                             break;
                     }
-                    /*if (contflg == 0)
-                    {
-                        BCount1 = BodyCount;
-                        contflg = 1;
-                    }else if(contflg == 1)
-                    {
-                        BCount2 = BodyCount;
-                        contflg = 2;
-                    }else if(contflg == 2)
-                    {   contflg = 0;
-                        SwapControls(this.tableLayoutPanel1, new TableLayoutPanelCellPosition(0, BCount1), new TableLayoutPanelCellPosition(0, BCount2));
-                        
-                    }
-                    */
-                    
-                }
-
-
+                }//flg==7
             };
         }
+        //---
 
+        //削除ボタン
         private void button_delete_Click(object sender, EventArgs e)
         {
             flg = 5;
             ButtonVisible();
         }
+        //---
 
+        //入れ替えボタン
         private void button_swap_Click(object sender, EventArgs e)
         {
             flg = 7;
@@ -624,25 +459,18 @@ namespace eazyweb
             */
             
         }
+        //---
 
-        //入れ替え処理メソッド
-        private void SwapControls(TableLayoutPanel tlp, TableLayoutPanelCellPosition cpos1, TableLayoutPanelCellPosition cpos2)
+        //---入れ替え処理メソッド
+        private void SwapControls(int x, int y ,Control ctrl1, Control ctrl2)
         {
-            var ctl1 = tlp.GetControlFromPosition(0, cpos1.Row);
-            var ctl2 = tlp.GetControlFromPosition(0, cpos2.Row);
-            if (ctl1 != null) // position1 can be empty
-                tlp.SetCellPosition(ctl1, cpos2);
-            if (ctl2 != null) // position2 can be empty
-                tlp.SetCellPosition(ctl2, cpos1);
-        }
+            flowLayoutPanel1.SuspendLayout();
 
-       private void SwapCellPosition(String name1,String name2)
-        {
-            MessageBox.Show(dic[name1].ToString() + dic[name2].ToString());
-            var temp = dic[name1];      //
-            dic[name1] = dic[name2];    //セルのポジションの入れ替え
-            dic[name2] = temp;          //
-            MessageBox.Show(dic[name1].ToString() + dic[name2].ToString());
+            //入れ替え処理
+            flowLayoutPanel1.Controls.SetChildIndex(ctrl1, y);
+            flowLayoutPanel1.Controls.SetChildIndex(ctrl2, x);
+
+            flowLayoutPanel1.ResumeLayout();
         }
         //---
     }
