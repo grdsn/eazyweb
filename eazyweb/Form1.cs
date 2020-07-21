@@ -22,6 +22,7 @@ namespace eazyweb
         public int ItemCount1 = 0;
         public int ItemCount2 = 0;
         public Dictionary<String,int> dic = new Dictionary<string, int>() { { "", 0 } };
+        public Dictionary<String, String> dic2 = new Dictionary<string, string>() { { "", "" } };
         public String name1 = "";
         public String name2 = "";
         //追加部品のカウント
@@ -34,10 +35,14 @@ namespace eazyweb
         public int addUrlCount = 0;
         public int addTextboxCount = 0;
         public int addButtonCount = 0;
+        public int addNavCount = 0;
+        public int addInputCount = 0;
+        public int addSmallCount = 0;
 
+        //入れ替え時のインデックス保持用
         public int cont1 = 0;
         public int cont2 = 0;
-
+        //入れ替え時の部品コントロール保持用
         Control ctrl1;
         Control ctrl2;
 
@@ -60,6 +65,7 @@ namespace eazyweb
                     this.groupBody.Visible = false;
                     this.button_delete.Visible = false;
                     this.button_swap.Visible = false;
+                    this.groupInput.Visible = false;
                     contflg = 0;
                     break;
                 //HEADボタン
@@ -69,6 +75,7 @@ namespace eazyweb
                     this.groupHead.BackColor = Color.FromArgb(128, 128, 255);
                     this.button_delete.Visible = false;
                     this.button_swap.Visible = false;
+                    this.groupInput.Visible = false;
                     contflg = 0;
                     break;
                 //BDOYボタン
@@ -78,12 +85,14 @@ namespace eazyweb
                     this.groupBody.BackColor = Color.FromArgb(192, 255, 255);
                     this.button_delete.Visible = false;
                     this.button_swap.Visible = false;
+                    this.groupInput.Visible = false;
                     contflg = 0;
                     break;
                 //削除ボタン
                 case 5:
                     this.groupHead.Visible = false;
                     this.groupBody.Visible = true;
+                    this.groupInput.Visible = false;
                     this.groupBody.BackColor = Color.FromName("Red");
                     contflg = 0;
                     break;
@@ -94,21 +103,30 @@ namespace eazyweb
                     this.groupBody.BackColor = Color.FromArgb(0, 192, 0);
                     this.button_delete.Visible = true;
                     this.button_swap.Visible = true;
+                    this.groupInput.Visible = false;
                     contflg = 0;
                     break;
                 //入れ替え
                 case 7:
                     this.groupHead.Visible = false;
                     this.groupBody.Visible = true;
+                    this.groupInput.Visible = false;
                     //this.groupBody.BackColor = Color.FromArgb(0, 192, 0);
                     //this.tableLayoutPanel1.BackColor = Color.FromArgb(0, 192, 0);
-                    this.button_delete.Visible = false;
+                    //this.button_delete.Visible = false;
+                    break;
+                //インプット
+                case 8:
+                    this.groupBody.Visible = false;
+                    this.groupHead.Visible = false;
+                    this.groupInput.Visible = true;
                     break;
                 //例外
                 default:
                     this.group_tag.Visible = true;
                     this.groupHead.Visible = false;
                     this.groupBody.Visible = false;
+                    this.groupInput.Visible = false;
                     this.button_delete.Visible = false;
                     this.button_swap.Visible = false;
                     contflg = 0;
@@ -157,7 +175,7 @@ namespace eazyweb
         }
         //---
 
-        //タグ一覧ボタン処理
+        //タグ一覧ボタン処理不要
         private void button_tag_Click(object sender, EventArgs e)
         {
             /*if(this.listItem.Visible == false)
@@ -175,7 +193,7 @@ namespace eazyweb
         private void Form1_Load(object sender, EventArgs e)
         {
             //---タグ一覧のリスト処理
-            String [] Item = { "見出し","文","表","画像","URL","テキストボックス","ボタン" };
+            String [] Item = { "見出し","文","表","画像","URL","テキストボックス","ボタン","ナビ","インプット" ,"スモール"};
 
             foreach (String addItem in Item){
                 listItem.Items.Add(addItem);
@@ -184,6 +202,8 @@ namespace eazyweb
 
             //---BODYタグツリーのスクロール
             this.flowLayoutPanel1.VerticalScroll.Visible = true;
+            this.flowLayoutPanel2.VerticalScroll.Visible = true;
+
             //---
         }
         //---
@@ -203,7 +223,7 @@ namespace eazyweb
                     button_h1.BackColor = Color.FromName("DodgerBlue");                             //ボタンの背景色の設定
                     button_h1.Text = "<H1>";                                                        //ボタンのテキスト
                     button_h1.Font = new Font("MS UI Gothic", 18,FontStyle.Bold);                   //フォントの設定
-                    button_h1.Name = "button_h1_" + addH1Count;                                     //ボタンのNameの設定
+                    button_h1.Name = "h1_" + addH1Count;                                            //ボタンのNameの設定
                     flowLayoutPanel1.Controls.Add(button_h1);
                     addBodyCount++;                                                                 //BODYの個数のカウント
                     dic.Add(button_h1.Name, flowLayoutPanel1.Controls.GetChildIndex(button_h1));
@@ -218,7 +238,7 @@ namespace eazyweb
                     button_p.BackColor = Color.FromName("DodgerBlue");
                     button_p.Text = "<P>";
                     button_p.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_p.Name = "button_p_" + addPCount;
+                    button_p.Name = "p_" + addPCount;
                     flowLayoutPanel1.Controls.Add(button_p);
                     addBodyCount++;
                     dic.Add(button_p.Name, flowLayoutPanel1.Controls.GetChildIndex(button_p));
@@ -233,7 +253,7 @@ namespace eazyweb
                     button_table.BackColor = Color.FromName("DodgerBlue");
                     button_table.Text = "<TABLE>";
                     button_table.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_table.Name = "button_table_" + addTableCount;
+                    button_table.Name = "table_" + addTableCount;
                     flowLayoutPanel1.Controls.Add(button_table);
                     addBodyCount++;
                     dic.Add(button_table.Name, flowLayoutPanel1.Controls.GetChildIndex(button_table));
@@ -248,7 +268,7 @@ namespace eazyweb
                     button_img.BackColor = Color.FromName("DodgerBlue");
                     button_img.Text = "<IMG>";
                     button_img.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_img.Name = "button_img_" + addImgCount;
+                    button_img.Name = "img_" + addImgCount;
                     flowLayoutPanel1.Controls.Add(button_img);
                     addBodyCount++;
                     dic.Add(button_img.Name, flowLayoutPanel1.Controls.GetChildIndex(button_img));
@@ -263,7 +283,7 @@ namespace eazyweb
                     button_url.BackColor = Color.FromName("DodgerBlue");
                     button_url.Text = "<URL>";
                     button_url.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
-                    button_url.Name = "button_url_" + addUrlCount;
+                    button_url.Name = "url_" + addUrlCount;
                     flowLayoutPanel1.Controls.Add(button_url);
                     addBodyCount++;
                     dic.Add(button_url.Name, flowLayoutPanel1.Controls.GetChildIndex(button_url));
@@ -278,10 +298,11 @@ namespace eazyweb
                     button_textBox.BackColor = Color.FromName("DodgerBlue");
                     button_textBox.Text = "<TEXTBOX>";
                     button_textBox.Font = new Font("MS UI Gothic", 12, FontStyle.Bold);
-                    button_textBox.Name = "button_textbox_" + addTextboxCount;
+                    button_textBox.Name = "textbox_" + addTextboxCount;
                     flowLayoutPanel1.Controls.Add(button_textBox);
                     addBodyCount++;
                     dic.Add(button_textBox.Name, flowLayoutPanel1.Controls.GetChildIndex(button_textBox));
+                    dic2.Add("textbox_" + addTextboxCount, button_textBox.Name);
                     button_textBox.Click += btnclick(button_textBox.Name,"textbox", dic[button_textBox.Name], addTextboxCount,button_textBox);
                     break;
                 //ボタン
@@ -293,11 +314,59 @@ namespace eazyweb
                     button_Button.BackColor = Color.FromName("DodgerBlue");
                     button_Button.Text = "<BUTTON>";
                     button_Button.Font = new Font("MS UI Gothic", 12, FontStyle.Bold);
-                    button_Button.Name = "button_button_" + addButtonCount;
+                    button_Button.Name = "button_" + addButtonCount;
                     flowLayoutPanel1.Controls.Add(button_Button);
                     addBodyCount++;
                     dic.Add(button_Button.Name, flowLayoutPanel1.Controls.GetChildIndex(button_Button));
-                    button_Button.Click += btnclick(button_Button.Name,"button_button", dic[button_Button.Name], addButtonCount, button_Button);
+                    dic2.Add("button_" + addButtonCount, button_Button.Name);
+                    button_Button.Click += btnclick(button_Button.Name,"button", dic[button_Button.Name], addButtonCount, button_Button);
+                    break;
+                //ナビ
+                case 7:
+                    addNavCount++;
+                    Button button_Nav = new Button();
+                    button_Nav.Size = new Size(122, 54);
+                    button_Nav.ForeColor = Color.FromName("White");
+                    button_Nav.BackColor = Color.FromName("DodgerBlue");
+                    button_Nav.Text = "<NAV>";
+                    button_Nav.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                    button_Nav.Name = "nav_" + addNavCount;
+                    flowLayoutPanel1.Controls.Add(button_Nav);
+                    addBodyCount++;
+                    dic.Add(button_Nav.Name, flowLayoutPanel1.Controls.GetChildIndex(button_Nav));
+                    button_Nav.Click += btnclick(button_Nav.Name, "nav", dic[button_Nav.Name], addButtonCount, button_Nav);
+                    break;
+
+                //インプット
+                case 8:
+                    addInputCount++;
+                    Button button_Input = new Button();
+                    button_Input.Size = new Size(122, 54);
+                    button_Input.ForeColor = Color.FromName("Black");
+                    button_Input.BackColor = Color.FromArgb(192, 192, 255);
+                    button_Input.Text = "<INPUT>";
+                    button_Input.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                    button_Input.Name = "input_" + addInputCount;
+                    flowLayoutPanel1.Controls.Add(button_Input);
+                    addBodyCount++;
+                    dic.Add(button_Input.Name, flowLayoutPanel1.Controls.GetChildIndex(button_Input));
+                    button_Input.Click += btnclick(button_Input.Name, "input", dic[button_Input.Name], addButtonCount, button_Input);
+                    GroupingInput();
+                    break;
+                //スモール
+                case 9:
+                    addSmallCount++;
+                    Button button_Small = new Button();
+                    button_Small.Size = new Size(122, 54);
+                    button_Small.ForeColor = Color.FromName("White");
+                    button_Small.BackColor = Color.FromName("DodgerBlue");
+                    button_Small.Text = "<SMALL>";
+                    button_Small.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
+                    button_Small.Name = "small_" + addSmallCount;
+                    flowLayoutPanel1.Controls.Add(button_Small);
+                    addBodyCount++;
+                    dic.Add(button_Small.Name, flowLayoutPanel1.Controls.GetChildIndex(button_Small));
+                    button_Small.Click += btnclick(button_Small.Name, "input", dic[button_Small.Name], addButtonCount, button_Small);
                     break;
                 default:
                     break;
@@ -328,25 +397,36 @@ namespace eazyweb
                     switch (getkind)
                     {
                         case "h1":
-                            property_text.Text = "name : " + name;
+                            property_text.Text = "class :" + name;
                             break;
                         case "p":
-                            property_text.Text = "name :" + name;
+                            property_text.Text = "class :" + name;
                             break;
                         case "table":
-                            property_text.Text = "name :" + name;
+                            property_text.Text = "class :" + name;
                             break;
                         case "img":
-                            property_text.Text = "name :" + name;
+                            property_text.Text = "class :" + name;
                             break;
                         case "url":
-                            property_text.Text = "name :" + name;
+                            property_text.Text = "class :" + name;
                             break;
                         case "textbox":
-                            property_text.Text = "name :" + name;
+                            property_text.Text = "class :" + name;
                             break;
-                        case "button_button":
-                            property_text.Text = "name :" + name;
+                        case "button":
+                            property_text.Text = "class :" + name;
+                            break;
+                        case "nav":
+                            property_text.Text = "class :" + name;
+                            break;
+                        case "input":
+                            flg = 8;
+                            ButtonVisible();
+                            //property_text.Text = "class :" + name;
+                            break;
+                        case "small":
+                            property_text.Text = "class :" + name;
                             break;
                         default:
                             break;
@@ -362,35 +442,6 @@ namespace eazyweb
                         control.Dispose();
                         dic.Remove(name);
                         addBodyCount--;
-                        switch (getkind)
-                        {
-                            case "h1":
-                                addH1Count--;
-                                break;
-                            case "p":
-                                addPCount--;
-                                break;
-                            case "table":
-                                addTableCount--;
-                                break;
-                            case "img":
-                                addImgCount--;
-                                break;
-                            case "url":
-                                addUrlCount--;
-                                break;
-                            case "textbox":
-                                addTextboxCount--;
-                                break;
-                            case "button_button":
-                                addButtonCount--;
-                                break;
-                            default:
-                                break;
-                        }
-                        
-
-
                     }
 
 
@@ -436,27 +487,6 @@ namespace eazyweb
         {
             flg = 7;
             ButtonVisible();
-            /*for (int i = 0; i < 10; i++) { 
-                checkedListBox1.Items.Add(item[i]);
-            }
-            //並び替えしたい
-            /*Control[] controls = Controls.Find(name, true);
-            foreach (Control control in controls)
-            {
-                MessageBox.Show(tableLayoutPanel1.GetCellPosition(control).ToString());
-                nname = control.Name;
-            }
-
-           Control c1 = this.tableLayoutPanel1.GetControlFromPosition(0,1);
-            Control c2 = this.tableLayoutPanel1.GetControlFromPosition(0, 2);
-
-            MessageBox.Show(c1.ToString() + "安堵" + c2.ToString());
-            if(c1 != null && c2 != null)
-            {
-                this.tableLayoutPanel1.SetRow(c1,2);
-                this.tableLayoutPanel1.SetRow(c2,1);
-            }
-            */
             
         }
         //---
@@ -473,5 +503,46 @@ namespace eazyweb
             flowLayoutPanel1.ResumeLayout();
         }
         //---
+
+        //---インプット系部品のグループ化
+        private void GroupingInput()
+        {
+            DialogResult result = MessageBox.Show("ボタンやテキストボックスなどの部品をまとめますか？","Inputへのグループ化", MessageBoxButtons.YesNo);
+            if(result == DialogResult.Yes)
+            {
+                flg = 8;
+                ButtonVisible();
+                contflg = 0;
+                for (int i = 0; i < 2; i++)
+                {
+                    if (contflg == 0)
+                    {
+                        Control[] controls1 = this.flowLayoutPanel1.Controls.Find(dic2["textbox_" + addTextboxCount], true);
+                        foreach (Control control in controls1)
+                        {
+                            control.Name += "_Input";
+                            dic2["textbox_" + addTextboxCount] = control.Name;
+                            this.flowLayoutPanel2.Controls.Add(control);
+                            MessageBox.Show(control.ToString());
+                            control.Dispose();
+                        }
+                        contflg = 1;
+                    }else if(contflg == 1)
+                    {
+                        Control[] controls2 = this.flowLayoutPanel1.Controls.Find(dic2["textbox_" + addTextboxCount], true);
+
+                        foreach (Control control in controls2)
+                        {
+                            this.flowLayoutPanel1.Controls.Remove(control);
+                            control.Dispose();
+                        }
+                    }
+                }
+                
+            }else if(result == DialogResult.No)
+            {
+                
+            }
+        }
     }
 }

@@ -32,10 +32,6 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.group_tag = new System.Windows.Forms.GroupBox();
             this.button_swap = new System.Windows.Forms.Button();
-            this.groupBody = new System.Windows.Forms.GroupBox();
-            this.property_text = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button_body2 = new System.Windows.Forms.Button();
             this.groupHead = new System.Windows.Forms.GroupBox();
             this.button_head2 = new System.Windows.Forms.Button();
             this.button_title = new System.Windows.Forms.Button();
@@ -43,14 +39,24 @@
             this.button_head1 = new System.Windows.Forms.Button();
             this.button_body1 = new System.Windows.Forms.Button();
             this.button_html = new System.Windows.Forms.Button();
+            this.groupBody = new System.Windows.Forms.GroupBox();
+            this.button_body2 = new System.Windows.Forms.Button();
+            this.property_text = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button_edit = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.button_tag = new System.Windows.Forms.Button();
             this.listItem = new System.Windows.Forms.ListBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.groupInput = new System.Windows.Forms.GroupBox();
+            this.button_Input = new System.Windows.Forms.Button();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.group_tag.SuspendLayout();
-            this.groupBody.SuspendLayout();
             this.groupHead.SuspendLayout();
+            this.groupBody.SuspendLayout();
+            this.groupInput.SuspendLayout();
             this.SuspendLayout();
             // 
             // imageList1
@@ -63,7 +69,6 @@
             // 
             this.group_tag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.group_tag.Controls.Add(this.button_swap);
-            this.group_tag.Controls.Add(this.groupBody);
             this.group_tag.Controls.Add(this.groupHead);
             this.group_tag.Controls.Add(this.button_delete);
             this.group_tag.Controls.Add(this.button_head1);
@@ -71,7 +76,7 @@
             this.group_tag.Controls.Add(this.button_html);
             this.group_tag.Location = new System.Drawing.Point(24, 473);
             this.group_tag.Name = "group_tag";
-            this.group_tag.Size = new System.Drawing.Size(318, 507);
+            this.group_tag.Size = new System.Drawing.Size(355, 507);
             this.group_tag.TabIndex = 3;
             this.group_tag.TabStop = false;
             // 
@@ -86,55 +91,6 @@
             this.button_swap.Visible = false;
             this.button_swap.Click += new System.EventHandler(this.button_swap_Click);
             // 
-            // groupBody
-            // 
-            this.groupBody.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.groupBody.Controls.Add(this.button_body2);
-            this.groupBody.Controls.Add(this.property_text);
-            this.groupBody.Controls.Add(this.label2);
-            this.groupBody.Controls.Add(this.flowLayoutPanel1);
-            this.groupBody.Location = new System.Drawing.Point(0, 57);
-            this.groupBody.Name = "groupBody";
-            this.groupBody.Size = new System.Drawing.Size(309, 445);
-            this.groupBody.TabIndex = 2;
-            this.groupBody.TabStop = false;
-            this.groupBody.Visible = false;
-            // 
-            // property_text
-            // 
-            this.property_text.BackColor = System.Drawing.SystemColors.Info;
-            this.property_text.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.property_text.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.property_text.Location = new System.Drawing.Point(167, 34);
-            this.property_text.Multiline = true;
-            this.property_text.Name = "property_text";
-            this.property_text.Size = new System.Drawing.Size(136, 401);
-            this.property_text.TabIndex = 4;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(166, 14);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 16);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "プロパティ";
-            // 
-            // button_body2
-            // 
-            this.button_body2.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button_body2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button_body2.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_body2.ForeColor = System.Drawing.Color.White;
-            this.button_body2.Location = new System.Drawing.Point(3, 21);
-            this.button_body2.Name = "button_body2";
-            this.button_body2.Size = new System.Drawing.Size(122, 54);
-            this.button_body2.TabIndex = 1;
-            this.button_body2.Text = "<BODY>";
-            this.button_body2.UseVisualStyleBackColor = false;
-            this.button_body2.Click += new System.EventHandler(this.button_body2_Click);
-            // 
             // groupHead
             // 
             this.groupHead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
@@ -142,7 +98,7 @@
             this.groupHead.Controls.Add(this.button_title);
             this.groupHead.Location = new System.Drawing.Point(0, 58);
             this.groupHead.Name = "groupHead";
-            this.groupHead.Size = new System.Drawing.Size(309, 443);
+            this.groupHead.Size = new System.Drawing.Size(349, 443);
             this.groupHead.TabIndex = 2;
             this.groupHead.TabStop = false;
             this.groupHead.Visible = false;
@@ -230,6 +186,63 @@
             this.button_html.UseVisualStyleBackColor = false;
             this.button_html.Click += new System.EventHandler(this.button_html_Click);
             // 
+            // groupBody
+            // 
+            this.groupBody.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.groupBody.Controls.Add(this.button_body2);
+            this.groupBody.Controls.Add(this.property_text);
+            this.groupBody.Controls.Add(this.label2);
+            this.groupBody.Controls.Add(this.flowLayoutPanel1);
+            this.groupBody.Location = new System.Drawing.Point(24, 530);
+            this.groupBody.Name = "groupBody";
+            this.groupBody.Size = new System.Drawing.Size(349, 445);
+            this.groupBody.TabIndex = 2;
+            this.groupBody.TabStop = false;
+            this.groupBody.Visible = false;
+            // 
+            // button_body2
+            // 
+            this.button_body2.BackColor = System.Drawing.Color.DodgerBlue;
+            this.button_body2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button_body2.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_body2.ForeColor = System.Drawing.Color.White;
+            this.button_body2.Location = new System.Drawing.Point(3, 21);
+            this.button_body2.Name = "button_body2";
+            this.button_body2.Size = new System.Drawing.Size(122, 54);
+            this.button_body2.TabIndex = 1;
+            this.button_body2.Text = "<BODY>";
+            this.button_body2.UseVisualStyleBackColor = false;
+            this.button_body2.Click += new System.EventHandler(this.button_body2_Click);
+            // 
+            // property_text
+            // 
+            this.property_text.BackColor = System.Drawing.SystemColors.Info;
+            this.property_text.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.property_text.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.property_text.Location = new System.Drawing.Point(162, 34);
+            this.property_text.Multiline = true;
+            this.property_text.Name = "property_text";
+            this.property_text.Size = new System.Drawing.Size(181, 401);
+            this.property_text.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label2.Location = new System.Drawing.Point(166, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 16);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "プロパティ";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 81);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(161, 354);
+            this.flowLayoutPanel1.TabIndex = 6;
+            // 
             // button_edit
             // 
             this.button_edit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
@@ -281,20 +294,68 @@
             this.listItem.TabIndex = 5;
             this.listItem.SelectedIndexChanged += new System.EventHandler(this.listItem_SelectedIndexChanged);
             // 
-            // flowLayoutPanel1
+            // groupInput
             // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 81);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(128, 354);
-            this.flowLayoutPanel1.TabIndex = 6;
+            this.groupInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.groupInput.Controls.Add(this.textBox1);
+            this.groupInput.Controls.Add(this.label3);
+            this.groupInput.Controls.Add(this.flowLayoutPanel2);
+            this.groupInput.Controls.Add(this.button_Input);
+            this.groupInput.Location = new System.Drawing.Point(439, 531);
+            this.groupInput.Name = "groupInput";
+            this.groupInput.Size = new System.Drawing.Size(349, 445);
+            this.groupInput.TabIndex = 6;
+            this.groupInput.TabStop = false;
+            this.groupInput.Visible = false;
+            // 
+            // button_Input
+            // 
+            this.button_Input.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.button_Input.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_Input.Location = new System.Drawing.Point(6, 22);
+            this.button_Input.Name = "button_Input";
+            this.button_Input.Size = new System.Drawing.Size(122, 52);
+            this.button_Input.TabIndex = 7;
+            this.button_Input.Text = "<INPUT>";
+            this.button_Input.UseVisualStyleBackColor = false;
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.AutoScroll = true;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(6, 80);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(161, 354);
+            this.flowLayoutPanel2.TabIndex = 8;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox1.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox1.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.textBox1.Location = new System.Drawing.Point(170, 33);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(173, 401);
+            this.textBox1.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label3.Location = new System.Drawing.Point(174, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 16);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "プロパティ";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1684, 1031);
+            this.Controls.Add(this.groupInput);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.groupBody);
             this.Controls.Add(this.button_edit);
             this.Controls.Add(this.button_tag);
             this.Controls.Add(this.listItem);
@@ -304,9 +365,11 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.group_tag.ResumeLayout(false);
+            this.groupHead.ResumeLayout(false);
             this.groupBody.ResumeLayout(false);
             this.groupBody.PerformLayout();
-            this.groupHead.ResumeLayout(false);
+            this.groupInput.ResumeLayout(false);
+            this.groupInput.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,6 +395,11 @@
         private System.Windows.Forms.Button button_delete;
         private System.Windows.Forms.Button button_swap;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.GroupBox groupInput;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.Button button_Input;
     }
 }
 
