@@ -15,6 +15,8 @@ namespace eazyweb
     {
         //画面フラグ
         public int flg = 0;
+        //編集フラグ
+        public int editflg = 0;
         //入れ替え部品
         public int contflg = 0;
         public int BCount1 = 0;
@@ -36,8 +38,14 @@ namespace eazyweb
         public int addTextboxCount = 0;
         public int addButtonCount = 0;
         public int addNavCount = 0;
-        public int addInputCount = 0;
+        public int addInputCount = 1;
         public int addSmallCount = 0;
+        public int inputedCount = 1;
+
+        //inputタグのフラグ
+        public int inputflg = 0;
+        public int inputedflg = 0;
+        public int inputeditflg = 0;
 
         //入れ替え時のインデックス保持用
         public int cont1 = 0;
@@ -90,12 +98,19 @@ namespace eazyweb
                     break;
                 //削除ボタン
                 case 5:
-                    this.groupHead.Visible = false;
-                    this.groupBody.Visible = true;
-                    this.groupInput.Visible = false;
-                    this.groupBody.BackColor = Color.FromName("Red");
-                    contflg = 0;
-                    break;
+                    if (inputeditflg == 1)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        this.groupHead.Visible = false;
+                        this.groupBody.Visible = true;
+                        this.groupInput.Visible = false;
+                        this.groupBody.BackColor = Color.FromName("Red");
+                        contflg = 0;
+                        break;
+                    }
                 //編集ボタン
                 case 6:
                     this.groupHead.Visible = false;
@@ -142,12 +157,16 @@ namespace eazyweb
         {
             flg = 1;
             ButtonVisible();
+            property_text.Text = "";
+            property_text2.Text = "";
         }
 
         private void button_head2_Click(object sender, EventArgs e)
         {
             flg = 1;
             ButtonVisible();
+            property_text.Text = "";
+            property_text2.Text = "";
         }
         //---
 
@@ -156,6 +175,8 @@ namespace eazyweb
         {
             flg = 2;
             ButtonVisible();
+            property_text.Text = "";
+            property_text2.Text = "";
 
         }
 
@@ -163,6 +184,8 @@ namespace eazyweb
         {
             flg = 2;
             ButtonVisible();
+            property_text.Text = "";
+            property_text2.Text = "";
 
         }
         //---
@@ -172,20 +195,8 @@ namespace eazyweb
         {
             flg = 0;
             ButtonVisible();
-        }
-        //---
-
-        //タグ一覧ボタン処理不要
-        private void button_tag_Click(object sender, EventArgs e)
-        {
-            /*if(this.listItem.Visible == false)
-            {
-                this.listItem.Visible = true;
-            }else if(this.listItem.Visible == true)
-            {
-                this.listItem.Visible = false;
-            }*/
-            
+            property_text.Text = "";
+            property_text2.Text = "";
         }
         //---
 
@@ -201,8 +212,8 @@ namespace eazyweb
             //---
 
             //---BODYタグツリーのスクロール
-            this.flowLayoutPanel1.VerticalScroll.Visible = true;
-            this.flowLayoutPanel2.VerticalScroll.Visible = true;
+            this.flowLayoutPanel_body.VerticalScroll.Visible = true;
+            this.flowLayoutPanel_input.VerticalScroll.Visible = true;
 
             //---
         }
@@ -222,12 +233,12 @@ namespace eazyweb
                     button_h1.ForeColor = Color.FromName("White");                                  //ボタンの文字色の設定
                     button_h1.BackColor = Color.FromName("DodgerBlue");                             //ボタンの背景色の設定
                     button_h1.Text = "<H1>";                                                        //ボタンのテキスト
-                    button_h1.Font = new Font("MS UI Gothic", 18,FontStyle.Bold);                   //フォントの設定
+                    button_h1.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);                   //フォントの設定
                     button_h1.Name = "h1_" + addH1Count;                                            //ボタンのNameの設定
-                    flowLayoutPanel1.Controls.Add(button_h1);
+                    flowLayoutPanel_body.Controls.Add(button_h1);
                     addBodyCount++;                                                                 //BODYの個数のカウント
-                    dic.Add(button_h1.Name, flowLayoutPanel1.Controls.GetChildIndex(button_h1));
-                    button_h1.Click += btnclick(button_h1.Name,"h1",dic[button_h1.Name], addH1Count,button_h1);                  //追加したボタンにイベントを追加
+                    dic.Add(button_h1.Name, flowLayoutPanel_body.Controls.GetChildIndex(button_h1));
+                    button_h1.Click += btnclick(button_h1.Name, "h1", dic[button_h1.Name], addH1Count, button_h1);                  //追加したボタンにイベントを追加
                     break;
                 //文
                 case 1:
@@ -239,10 +250,10 @@ namespace eazyweb
                     button_p.Text = "<P>";
                     button_p.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
                     button_p.Name = "p_" + addPCount;
-                    flowLayoutPanel1.Controls.Add(button_p);
+                    flowLayoutPanel_body.Controls.Add(button_p);
                     addBodyCount++;
-                    dic.Add(button_p.Name, flowLayoutPanel1.Controls.GetChildIndex(button_p));
-                    button_p.Click += btnclick(button_p.Name,"p", dic[button_p.Name], addPCount, button_p);
+                    dic.Add(button_p.Name, flowLayoutPanel_body.Controls.GetChildIndex(button_p));
+                    button_p.Click += btnclick(button_p.Name, "p", dic[button_p.Name], addPCount, button_p);
                     break;
                 //表
                 case 2:
@@ -254,10 +265,10 @@ namespace eazyweb
                     button_table.Text = "<TABLE>";
                     button_table.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
                     button_table.Name = "table_" + addTableCount;
-                    flowLayoutPanel1.Controls.Add(button_table);
+                    flowLayoutPanel_body.Controls.Add(button_table);
                     addBodyCount++;
-                    dic.Add(button_table.Name, flowLayoutPanel1.Controls.GetChildIndex(button_table));
-                    button_table.Click += btnclick(button_table.Name,"table" , dic[button_table.Name], addTableCount, button_table);
+                    dic.Add(button_table.Name, flowLayoutPanel_body.Controls.GetChildIndex(button_table));
+                    button_table.Click += btnclick(button_table.Name, "table", dic[button_table.Name], addTableCount, button_table);
                     break;
                 //画像
                 case 3:
@@ -269,10 +280,10 @@ namespace eazyweb
                     button_img.Text = "<IMG>";
                     button_img.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
                     button_img.Name = "img_" + addImgCount;
-                    flowLayoutPanel1.Controls.Add(button_img);
+                    flowLayoutPanel_body.Controls.Add(button_img);
                     addBodyCount++;
-                    dic.Add(button_img.Name, flowLayoutPanel1.Controls.GetChildIndex(button_img));
-                    button_img.Click += btnclick(button_img.Name,"img", dic[button_img.Name], addImgCount, button_img);
+                    dic.Add(button_img.Name, flowLayoutPanel_body.Controls.GetChildIndex(button_img));
+                    button_img.Click += btnclick(button_img.Name, "img", dic[button_img.Name], addImgCount, button_img);
                     break;
                 //URL
                 case 4:
@@ -284,10 +295,10 @@ namespace eazyweb
                     button_url.Text = "<URL>";
                     button_url.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
                     button_url.Name = "url_" + addUrlCount;
-                    flowLayoutPanel1.Controls.Add(button_url);
+                    flowLayoutPanel_body.Controls.Add(button_url);
                     addBodyCount++;
-                    dic.Add(button_url.Name, flowLayoutPanel1.Controls.GetChildIndex(button_url));
-                    button_url.Click += btnclick(button_url.Name,"url", dic[button_url.Name], addUrlCount, button_url);
+                    dic.Add(button_url.Name, flowLayoutPanel_body.Controls.GetChildIndex(button_url));
+                    button_url.Click += btnclick(button_url.Name, "url", dic[button_url.Name], addUrlCount, button_url);
                     break;
                 //テキストボックス
                 case 5:
@@ -299,11 +310,19 @@ namespace eazyweb
                     button_textBox.Text = "<TEXTBOX>";
                     button_textBox.Font = new Font("MS UI Gothic", 12, FontStyle.Bold);
                     button_textBox.Name = "textbox_" + addTextboxCount;
-                    flowLayoutPanel1.Controls.Add(button_textBox);
+                    if (inputflg == 0)
+                    {
+                        flowLayoutPanel_body.Controls.Add(button_textBox);
+                        dic.Add(button_textBox.Name, flowLayoutPanel_body.Controls.GetChildIndex(button_textBox));
+                    }
+                    else if (inputflg == 1)
+                    {
+                        flowLayoutPanel_input.Controls.Add(button_textBox);
+                        dic.Add(button_textBox.Name, flowLayoutPanel_input.Controls.GetChildIndex(button_textBox));
+                    }
                     addBodyCount++;
-                    dic.Add(button_textBox.Name, flowLayoutPanel1.Controls.GetChildIndex(button_textBox));
                     dic2.Add("textbox_" + addTextboxCount, button_textBox.Name);
-                    button_textBox.Click += btnclick(button_textBox.Name,"textbox", dic[button_textBox.Name], addTextboxCount,button_textBox);
+                    button_textBox.Click += btnclick(button_textBox.Name, "textbox", dic[button_textBox.Name], addTextboxCount, button_textBox);
                     break;
                 //ボタン
                 case 6:
@@ -315,11 +334,19 @@ namespace eazyweb
                     button_Button.Text = "<BUTTON>";
                     button_Button.Font = new Font("MS UI Gothic", 12, FontStyle.Bold);
                     button_Button.Name = "button_" + addButtonCount;
-                    flowLayoutPanel1.Controls.Add(button_Button);
+                    if (inputflg == 0)
+                    {
+                        flowLayoutPanel_body.Controls.Add(button_Button);
+                        dic.Add(button_Button.Name, flowLayoutPanel_body.Controls.GetChildIndex(button_Button));
+                    }
+                    else if (inputflg == 1)
+                    {
+                        flowLayoutPanel_input.Controls.Add(button_Button);
+                        dic.Add(button_Button.Name, flowLayoutPanel_input.Controls.GetChildIndex(button_Button));
+                    }
                     addBodyCount++;
-                    dic.Add(button_Button.Name, flowLayoutPanel1.Controls.GetChildIndex(button_Button));
                     dic2.Add("button_" + addButtonCount, button_Button.Name);
-                    button_Button.Click += btnclick(button_Button.Name,"button", dic[button_Button.Name], addButtonCount, button_Button);
+                    button_Button.Click += btnclick(button_Button.Name, "button", dic[button_Button.Name], addButtonCount, button_Button);
                     break;
                 //ナビ
                 case 7:
@@ -331,15 +358,14 @@ namespace eazyweb
                     button_Nav.Text = "<NAV>";
                     button_Nav.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
                     button_Nav.Name = "nav_" + addNavCount;
-                    flowLayoutPanel1.Controls.Add(button_Nav);
+                    flowLayoutPanel_body.Controls.Add(button_Nav);
                     addBodyCount++;
-                    dic.Add(button_Nav.Name, flowLayoutPanel1.Controls.GetChildIndex(button_Nav));
+                    dic.Add(button_Nav.Name, flowLayoutPanel_body.Controls.GetChildIndex(button_Nav));
                     button_Nav.Click += btnclick(button_Nav.Name, "nav", dic[button_Nav.Name], addButtonCount, button_Nav);
                     break;
 
                 //インプット
                 case 8:
-                    addInputCount++;
                     Button button_Input = new Button();
                     button_Input.Size = new Size(122, 54);
                     button_Input.ForeColor = Color.FromName("Black");
@@ -347,11 +373,27 @@ namespace eazyweb
                     button_Input.Text = "<INPUT>";
                     button_Input.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
                     button_Input.Name = "input_" + addInputCount;
-                    flowLayoutPanel1.Controls.Add(button_Input);
-                    addBodyCount++;
-                    dic.Add(button_Input.Name, flowLayoutPanel1.Controls.GetChildIndex(button_Input));
-                    button_Input.Click += btnclick(button_Input.Name, "input", dic[button_Input.Name], addButtonCount, button_Input);
-                    GroupingInput();
+                    if (inputedCount == 1)
+                    {
+                        if (inputedflg != 1)
+                        {
+                            flowLayoutPanel_body.Controls.Add(button_Input);
+                            addBodyCount++;
+                            dic.Add(button_Input.Name, flowLayoutPanel_body.Controls.GetChildIndex(button_Input));
+                            button_Input.Click += btnclick(button_Input.Name, "input", dic[button_Input.Name], addInputCount, button_Input);
+                            GroupingInput(addTextboxCount, addButtonCount);
+                            inputedCount++;
+                        }
+                    }
+                    else if (inputedCount >= 2 && inputedflg != 1)
+                    {
+                        GroupingInput(addTextboxCount, addButtonCount);
+                    }
+                    else
+                    {
+                            MessageBox.Show("すでに追加されています。");
+                            break;
+                    }
                     break;
                 //スモール
                 case 9:
@@ -363,10 +405,10 @@ namespace eazyweb
                     button_Small.Text = "<SMALL>";
                     button_Small.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
                     button_Small.Name = "small_" + addSmallCount;
-                    flowLayoutPanel1.Controls.Add(button_Small);
+                    flowLayoutPanel_body.Controls.Add(button_Small);
                     addBodyCount++;
-                    dic.Add(button_Small.Name, flowLayoutPanel1.Controls.GetChildIndex(button_Small));
-                    button_Small.Click += btnclick(button_Small.Name, "input", dic[button_Small.Name], addButtonCount, button_Small);
+                    dic.Add(button_Small.Name, flowLayoutPanel_body.Controls.GetChildIndex(button_Small));
+                    button_Small.Click += btnclick(button_Small.Name, "small", dic[button_Small.Name], addButtonCount, button_Small);
                     break;
                 default:
                     break;
@@ -377,9 +419,19 @@ namespace eazyweb
         //---編集ボタンを押したとき
         private void button_edit_Click_1(object sender, EventArgs e)
         {
-
-            flg = 6;
-            ButtonVisible();
+            if(editflg == 0)
+            {
+                editflg = 1;
+                flg = 6;
+                ButtonVisible();
+            }
+            else
+            {
+                editflg = 0;
+                flg = 2;
+                ButtonVisible();
+            }
+            
         }
         //---
 
@@ -393,59 +445,148 @@ namespace eazyweb
                 {   //通常時の処理
                     //選択したボタンのプロパティを表示
 
-
+                    if (inputedflg == 0)
+                    {
+                        switch (getkind)
+                        {
+                            case "h1":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "p":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "table":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "img":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "url":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "textbox":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "button":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "nav":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "input":
+                                flg = 8;
+                                ButtonVisible();
+                                break;
+                            case "small":
+                                property_text.Text = "class :" + name;
+                                break;
+                            default:
+                                break;
+                        }
+                    }else if(inputedflg == 1)
+                    {
+                        switch (getkind)
+                        {
+                            case "h1":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "p":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "table":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "img":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "url":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "textbox":
+                                property_text2.Text = "class :" + name;
+                                break;
+                            case "button":
+                                property_text2.Text = "class :" + name;
+                                break;
+                            case "input":
+                                flg = 8;
+                                ButtonVisible();
+                                break;
+                            case "nav":
+                                property_text.Text = "class :" + name;
+                                break;
+                            case "small":
+                                property_text.Text = "class :" + name;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }//通常時
+                else if(flg == 6)
+                {
                     switch (getkind)
                     {
-                        case "h1":
-                            property_text.Text = "class :" + name;
-                            break;
-                        case "p":
-                            property_text.Text = "class :" + name;
-                            break;
-                        case "table":
-                            property_text.Text = "class :" + name;
-                            break;
-                        case "img":
-                            property_text.Text = "class :" + name;
-                            break;
-                        case "url":
-                            property_text.Text = "class :" + name;
-                            break;
-                        case "textbox":
-                            property_text.Text = "class :" + name;
-                            break;
-                        case "button":
-                            property_text.Text = "class :" + name;
-                            break;
-                        case "nav":
-                            property_text.Text = "class :" + name;
-                            break;
                         case "input":
                             flg = 8;
                             ButtonVisible();
-                            //property_text.Text = "class :" + name;
-                            break;
-                        case "small":
-                            property_text.Text = "class :" + name;
-                            break;
-                        default:
+                            flg = 6;
                             break;
                     }
-                }//通常時
+                }
                 else if (flg == 5)
-                {   //押されている
+                {   //削除ボタン
 
+                    if(getkind == "input")
+                    {
+                        flg = 8;
+                        ButtonVisible();
+                        flg = 5;
+                    }
                     Control[] controls = Controls.Find(name, true);
                     foreach (Control control in controls)
                     {   //部品の削除処理
+                        if (control.Name == "input_" + addInputCount)
+                        {
+                            DialogResult result = MessageBox.Show("この部品を削除すると、中に入っている部品も消されますが、よろしいですか？", "注意！",MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                            if(result == DialogResult.Yes)
+                            {
+                            inputedflg = 0;
+                            inputflg = 0;
+                                for (int i = inputedCount; i >= 1; i--)
+                                {
+                                    Control[] controls2 = Controls.Find("textbox_" + i, true);
+                                    foreach (Control control2 in controls2)
+                                    {
+                                        this.Controls.Remove(control2);
+                                        control2.Dispose();
+                                    }
+                                    Control[] controls3 = Controls.Find("button_" + i, true);
+                                    foreach (Control control3 in controls3)
+                                    {
+                                        this.Controls.Remove(control3);
+                                        control3.Dispose();
+                                    }
+                                }
+                                inputedCount = 1;
+                                flg = 5;
+                                ButtonVisible();
+                            }else if(result == DialogResult.No)
+                            {
+                                break;
+                            }
+                                
+                        }
                         this.Controls.Remove(control);
                         control.Dispose();
                         dic.Remove(name);
                         addBodyCount--;
                     }
+                        
+                            
+                        
 
-
-                }//flg==5
+                }//flg==5削除
                 else if (flg == 7)
                 {
                     
@@ -456,13 +597,13 @@ namespace eazyweb
                         case 0:
                             name1 = name;   //一つ目の部品の名前を保持
                             ctrl1 = cont;   //部品のコントロールを保持
-                            cont1 = flowLayoutPanel1.Controls.GetChildIndex(cont);  //部品のFlowLayoutPanelのインデックスを保持
+                            cont1 = flowLayoutPanel_body.Controls.GetChildIndex(cont);  //部品のFlowLayoutPanelのインデックスを保持
                             contflg = 1;    //選択カウントを設定
                             break;
                         //二回目
                         case 1:
                             ctrl2 = cont;   //二つ目の部品の名前を保持
-                            cont2 = flowLayoutPanel1.Controls.GetChildIndex(cont);  //部品のFlowLayoutPanelのインデックスを保持
+                            cont2 = flowLayoutPanel_body.Controls.GetChildIndex(cont);  //部品のFlowLayoutPanelのインデックスを保持
                             SwapControls(cont1,cont2,ctrl1,ctrl2);       //入れ替えメソッドの実行
                             contflg = 0;    //初期化
                             break;
@@ -494,54 +635,58 @@ namespace eazyweb
         //---入れ替え処理メソッド
         private void SwapControls(int x, int y ,Control ctrl1, Control ctrl2)
         {
-            flowLayoutPanel1.SuspendLayout();
+            flowLayoutPanel_body.SuspendLayout();
 
             //入れ替え処理
-            flowLayoutPanel1.Controls.SetChildIndex(ctrl1, y);
-            flowLayoutPanel1.Controls.SetChildIndex(ctrl2, x);
+            flowLayoutPanel_body.Controls.SetChildIndex(ctrl1, y);
+            flowLayoutPanel_body.Controls.SetChildIndex(ctrl2, x);
 
-            flowLayoutPanel1.ResumeLayout();
+            flowLayoutPanel_body.ResumeLayout();
         }
         //---
 
         //---インプット系部品のグループ化
-        private void GroupingInput()
+        private void GroupingInput(int textCount, int buttonCount)
         {
             DialogResult result = MessageBox.Show("ボタンやテキストボックスなどの部品をまとめますか？","Inputへのグループ化", MessageBoxButtons.YesNo);
             if(result == DialogResult.Yes)
             {
+                inputedflg = 1;
+                inputflg = 1;
                 flg = 8;
                 ButtonVisible();
                 contflg = 0;
-                for (int i = 0; i < 2; i++)
+                try
                 {
-                    if (contflg == 0)
+                    for (int i = textCount; i >= 1; i--)
                     {
-                        Control[] controls1 = this.flowLayoutPanel1.Controls.Find(dic2["textbox_" + addTextboxCount], true);
+                        Control[] controls1 = this.flowLayoutPanel_body.Controls.Find(dic2["textbox_" + i], true);
                         foreach (Control control in controls1)
                         {
-                            control.Name += "_Input";
-                            dic2["textbox_" + addTextboxCount] = control.Name;
-                            this.flowLayoutPanel2.Controls.Add(control);
-                            MessageBox.Show(control.ToString());
-                            control.Dispose();
+                            this.flowLayoutPanel_input.Controls.Add(control);
                         }
-                        contflg = 1;
-                    }else if(contflg == 1)
-                    {
-                        Control[] controls2 = this.flowLayoutPanel1.Controls.Find(dic2["textbox_" + addTextboxCount], true);
-
+                        inputedCount++;
+                    }
+                    for (int i = buttonCount;i >= 1; i--) { 
+                        Control[] controls2 = this.flowLayoutPanel_body.Controls.Find(dic2["button_" + i], true);
                         foreach (Control control in controls2)
                         {
-                            this.flowLayoutPanel1.Controls.Remove(control);
-                            control.Dispose();
+                            this.flowLayoutPanel_input.Controls.Add(control);
                         }
+                        inputedCount++;
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("対象部品が追加されていません。", "エラー",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
+                       
+                
                 
             }else if(result == DialogResult.No)
             {
-                
+                inputedflg = 0;
+                inputflg = 0;
             }
         }
     }
