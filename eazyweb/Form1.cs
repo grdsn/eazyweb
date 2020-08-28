@@ -242,8 +242,6 @@ namespace eazyweb
             }
         }
    
-
-      
         //---タグツリーのHEADボタン処理
         private void button_head1_Click(object sender, EventArgs e)
         {
@@ -632,12 +630,7 @@ namespace eazyweb
                 inputflg = 0;
             }
         }
-
-        private void save(Control control)
-        {
-            Properties.Settings.Default.Save();
-        }
-
+        
         //作業ファイルの保存リスナー＆処理
         private void button_save_Click(object sender, EventArgs e)
         {
@@ -692,9 +685,7 @@ namespace eazyweb
             file.Close();
             
         }
-
         
-
         //作業ファイル開くリスナー
         private void button_open_Click(object sender, EventArgs e)
         {
@@ -782,7 +773,7 @@ namespace eazyweb
         //タグツリーの部品追加処理（通常時）
         private void AddTag(int Index)
         {
-            //タブツリーのBODYグループに部品のボタンを追加
+            //タグツリーのBODYグループに部品のボタンを追加
             switch (Index)
             {
                 //見出し
@@ -803,7 +794,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "h1");
                     OpenedName.Add(addBodyCount, button_h1.Name.ToString());
                     button_h1.Click += btnclick(button_h1.Name, "h1", dic[button_h1.Name], addH1Count, button_h1);                  //追加したボタンにイベントを追加
-                    save(button_h1);
                     break;
                 //文
                 case 1:
@@ -823,7 +813,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "div");
                     OpenedName.Add(addBodyCount, button_div.Name.ToString());
                     button_div.Click += btnclick(button_div.Name, "div", dic[button_div.Name], addDivCount, button_div);
-                    save(button_div);
                     break;
                 //表
                 case 2:
@@ -843,7 +832,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "table");
                     OpenedName.Add(addBodyCount, button_table.Name.ToString());
                     button_table.Click += btnclick(button_table.Name, "table", dic[button_table.Name], addTableCount, button_table);
-                    save(button_table);
                     break;
                 //画像
                 case 3:
@@ -863,7 +851,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "img");
                     OpenedName.Add(addBodyCount, button_img.Name.ToString());
                     button_img.Click += btnclick(button_img.Name, "img", dic[button_img.Name], addImgCount, button_img);
-                    save(button_img);
                     break;
                 //URL
                 case 4:
@@ -883,7 +870,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "url");
                     OpenedName.Add(addBodyCount, button_url.Name.ToString());
                     button_url.Click += btnclick(button_url.Name, "url", dic[button_url.Name], addUrlCount, button_url);
-                    save(button_url);
                     break;
                 //テキストボックス
                 case 5:
@@ -912,7 +898,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "textbox");
                     OpenedName.Add(addBodyCount, button_textBox.Name.ToString());
                     button_textBox.Click += btnclick(button_textBox.Name, "textbox", dic[button_textBox.Name], addTextboxCount, button_textBox);
-                    save(button_textBox);
                     break;
                 //ボタン
                 case 6:
@@ -941,7 +926,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "button");
                     OpenedName.Add(addBodyCount, button_Button.Name.ToString());
                     button_Button.Click += btnclick(button_Button.Name, "button", dic[button_Button.Name], addButtonCount, button_Button);
-                    save(button_Button);
                     break;
                 //ナビ
                 case 7:
@@ -961,7 +945,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "nav");
                     OpenedName.Add(addBodyCount, button_Nav.Name.ToString());
                     button_Nav.Click += btnclick(button_Nav.Name, "nav", dic[button_Nav.Name], addButtonCount, button_Nav);
-                    save(button_Nav);
                     break;
 
                 //インプット
@@ -987,7 +970,6 @@ namespace eazyweb
                             button_Input.Click += btnclick(button_Input.Name, "input", dic[button_Input.Name], addInputCount, button_Input);
                             GroupingInput(addTextboxCount, addButtonCount);
                             inputedCount++;
-                            save(button_Input);
                         }
                     }
                     else if (inputedCount >= 2 && inputedflg != 1)
@@ -1019,7 +1001,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "small");
                     OpenedName.Add(addBodyCount, button_Small.Name.ToString());
                     button_Small.Click += btnclick(button_Small.Name, "small", dic[button_Small.Name], addButtonCount, button_Small);
-                    save(button_Small);
                     break;
                 //リンク
                 case 10:
@@ -1039,7 +1020,6 @@ namespace eazyweb
                     OpenedTag.Add(addHeadCount + 999, "link");
                     OpenedName.Add(addHeadCount + 999, button_Link.Name.ToString());
                     button_Link.Click += btnclick(button_Link.Name, "link", dic[button_Link.Name], addButtonCount, button_Link);
-                    save(button_Link);
                     break;
                 default:
                     break;
@@ -1048,7 +1028,7 @@ namespace eazyweb
         //タグツリーの部品追加処理（作業ファイルを開いたとき）
         private void AddTag(int Index,String name)
         {
-            //タブツリーのBODYグループに部品のボタンを追加
+            //タグツリーのBODYグループに部品のボタンを追加
             switch (Index)
             {
                 //見出し
@@ -1069,7 +1049,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "h1");
                     OpenedName.Add(addBodyCount, button_h1.Name.ToString());
                     button_h1.Click += btnclick(button_h1.Name, "h1", dic[button_h1.Name], addH1Count, button_h1);                  //追加したボタンにイベントを追加
-                    save(button_h1);
                     break;
                 //文
                 case 1:
@@ -1089,7 +1068,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "div");
                     OpenedName.Add(addBodyCount, button_div.Name.ToString());
                     button_div.Click += btnclick(button_div.Name, "div", dic[button_div.Name], addDivCount, button_div);
-                    save(button_div);
                     break;
                 //表
                 case 2:
@@ -1109,7 +1087,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "table");
                     OpenedName.Add(addBodyCount, button_table.Name.ToString());
                     button_table.Click += btnclick(button_table.Name, "table", dic[button_table.Name], addTableCount, button_table);
-                    save(button_table);
                     break;
                 //画像
                 case 3:
@@ -1129,7 +1106,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "img");
                     OpenedName.Add(addBodyCount, button_img.Name.ToString());
                     button_img.Click += btnclick(button_img.Name, "img", dic[button_img.Name], addImgCount, button_img);
-                    save(button_img);
                     break;
                 //URL
                 case 4:
@@ -1149,7 +1125,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "url");
                     OpenedName.Add(addBodyCount, button_url.Name.ToString());
                     button_url.Click += btnclick(button_url.Name, "url", dic[button_url.Name], addUrlCount, button_url);
-                    save(button_url);
                     break;
                 //テキストボックス
                 case 5:
@@ -1178,7 +1153,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "textbox");
                     OpenedName.Add(addBodyCount, button_textBox.Name.ToString());
                     button_textBox.Click += btnclick(button_textBox.Name, "textbox", dic[button_textBox.Name], addTextboxCount, button_textBox);
-                    save(button_textBox);
                     break;
                 //ボタン
                 case 6:
@@ -1207,7 +1181,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "button");
                     OpenedName.Add(addBodyCount, button_Button.Name.ToString());
                     button_Button.Click += btnclick(button_Button.Name, "button", dic[button_Button.Name], addButtonCount, button_Button);
-                    save(button_Button);
                     break;
                 //ナビ
                 case 7:
@@ -1227,7 +1200,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "nav");
                     OpenedName.Add(addBodyCount, button_Nav.Name.ToString());
                     button_Nav.Click += btnclick(button_Nav.Name, "nav", dic[button_Nav.Name], addButtonCount, button_Nav);
-                    save(button_Nav);
                     break;
 
                 //インプット
@@ -1253,7 +1225,6 @@ namespace eazyweb
                             button_Input.Click += btnclick(button_Input.Name, "input", dic[button_Input.Name], addInputCount, button_Input);
                             GroupingInput(addTextboxCount, addButtonCount);
                             inputedCount++;
-                            save(button_Input);
                         }
                     }
                     else if (inputedCount >= 2 && inputedflg != 1)
@@ -1285,7 +1256,6 @@ namespace eazyweb
                     OpenedTag.Add(addBodyCount, "small");
                     OpenedName.Add(addBodyCount, button_Small.Name.ToString());
                     button_Small.Click += btnclick(button_Small.Name, "small", dic[button_Small.Name], addButtonCount, button_Small);
-                    save(button_Small);
                     break;
                 //リンク
                 case 10:
@@ -1305,7 +1275,6 @@ namespace eazyweb
                     OpenedTag.Add(addHeadCount + 999, "link");
                     OpenedName.Add(addHeadCount + 999, button_Link.Name.ToString());
                     button_Link.Click += btnclick(button_Link.Name, "link", dic[button_Link.Name], addButtonCount, button_Link);
-                    save(button_Link);
                     break;
                 default:
                     break;
