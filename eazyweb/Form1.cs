@@ -15,6 +15,7 @@ namespace eazyweb
 {
     public partial class Form1 : Form
     {
+        
         //画面フラグ
         public int flg = 0;
         //編集フラグ
@@ -25,7 +26,7 @@ namespace eazyweb
         public int BCount2 = 0;
         public int ItemCount1 = 0;
         public int ItemCount2 = 0;
-        public Dictionary<String,int> dic = new Dictionary<string, int>();
+        public Dictionary<String, int> dic = new Dictionary<string, int>();
         public Dictionary<String, String> dic2 = new Dictionary<string, string>() { { "", "" } };
         public Dictionary<int, String> OpenedTag = new Dictionary<int, string>();
         public Dictionary<int, String> OpenedName = new Dictionary<int, string>();
@@ -93,7 +94,7 @@ namespace eazyweb
             dic2.Clear();
             OpenedTag.Clear();
             OpenedName.Clear();
-       
+
             name1 = null;
             name2 = null;
 
@@ -144,7 +145,7 @@ namespace eazyweb
         //タグツリーのボタン表示の切り替え
         public void ButtonVisible()
         {
-            switch(flg){
+            switch (flg) {
                 //HTMLボタン
                 case 0:
                     this.button_body2.Visible = false;
@@ -192,9 +193,8 @@ namespace eazyweb
                     }
                     else
                     {
-                        this.groupHead.Visible = false;
-                        this.groupBody.Visible = true;
-                        this.groupInput.Visible = false;
+                        this.button_delete.Visible = true;
+                        this.button_swap.Visible = true;
                         this.group_tag.BackColor = Color.FromName("Brown");
                         this.label1.BackColor = Color.FromName("Brown");
                         contflg = 0;
@@ -240,22 +240,45 @@ namespace eazyweb
 
             }
         }
-   
+
         //---タグツリーのHEADボタン処理
         private void button_head1_Click(object sender, EventArgs e)
         {
-            flg = 1;
-            ButtonVisible();
+            if(flg == 5)
+            {
+                flg = 1;
+                ButtonVisible();
+                flg = 5;
+                ButtonVisible();
+            }else
+            {
+                flg = 1;
+                ButtonVisible();
+            }
+            
         }
         //---
 
         //---タグツリーのタグツリーのBODYボタン処理
         private void button_body1_Click(object sender, EventArgs e)
         {
-            flg = 2;
-            button_head1.Visible = false;
-            button_body2.Visible = true;
-            ButtonVisible();
+            if(flg == 5)
+            {
+                flg = 2;
+                button_head1.Visible = false;
+                button_body2.Visible = true;
+                ButtonVisible();
+                flg = 5;
+                ButtonVisible();
+            }else
+            {
+                flg = 2;
+                button_head1.Visible = false;
+                button_body2.Visible = true;
+                ButtonVisible();
+            }
+            
+            
 
         }
 
@@ -279,9 +302,9 @@ namespace eazyweb
         private void Form1_Load(object sender, EventArgs e)
         {
             //---タグ一覧のリスト処理
-            String [] Item = { "見出し","文","表","画像","URL","テキストボックス","ボタン","ナビ","インプット" ,"スモール","リンク"};
+            String[] Item = { "見出し", "文", "表", "画像", "URL", "テキストボックス", "ボタン", "ナビ", "インプット", "スモール", "リンク" };
 
-            foreach (String addItem in Item){
+            foreach (String addItem in Item) {
                 listItem.Items.Add(addItem);
             }
             //---
@@ -295,7 +318,6 @@ namespace eazyweb
             tt.SetToolTip(button_html, "全体");
             tt.SetToolTip(button_head1, "<head>部分");
             tt.SetToolTip(button_body1, "<body>部分");
-
             
         }
         //---
@@ -310,7 +332,7 @@ namespace eazyweb
         //---編集ボタンを押したとき
         private void button_edit_Click_1(object sender, EventArgs e)
         {
-            if(editflg == 0)
+            if (editflg == 0)
             {
                 editflg = 1;
                 flg = 6;
@@ -322,13 +344,13 @@ namespace eazyweb
                 flg = 2;
                 ButtonVisible();
             }
-            
+
         }
         //---
 
         //---動的ボタンのイベント(引数：部品名、部品の種類、追加カウント、アイテムカウント、部品)
-        private EventHandler btnclick(String name,String getkind,int BodyCount, int itemCount, Control cont)
-        {               
+        private EventHandler btnclick(String name, String getkind, int BodyCount, int itemCount, Control cont)
+        {
             return delegate (object sender2, EventArgs e2)
             {
 
@@ -376,7 +398,7 @@ namespace eazyweb
                             default:
                                 break;
                         }
-                    }else if(inputedflg == 1)   //グループ化
+                    } else if (inputedflg == 1)   //グループ化
                     {
                         switch (getkind)
                         {
@@ -416,7 +438,7 @@ namespace eazyweb
                         }
                     }
                 }//通常時
-                else if(flg == 6)   //編集時
+                else if (flg == 6)   //編集時
                 {
                     switch (getkind)    //switch文にして、追加コンテンツ対策
                     {
@@ -430,7 +452,7 @@ namespace eazyweb
                 else if (flg == 5)
                 {   //削除ボタン
 
-                    if(getkind == "input")
+                    if (getkind == "input")
                     {
                         flg = 8;
                         ButtonVisible();
@@ -441,26 +463,26 @@ namespace eazyweb
                     {   //部品の削除処理
                         if (control.Name == "input_" + addInputCount)
                         {
-                            DialogResult result = MessageBox.Show("この部品を削除すると、中に入っている部品も消されますが、よろしいですか？", "注意！",MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                            if(result == DialogResult.Yes)
+                            DialogResult result = MessageBox.Show("この部品を削除すると、中に入っている部品も消されますが、よろしいですか？", "注意！", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                            if (result == DialogResult.Yes)
                             {
-                            inputedflg = 0;
-                            inputflg = 0;
+                                inputedflg = 0;
+                                inputflg = 0;
                                 for (int i = inputedCount; i >= 1; i--)
                                 {
                                     Control[] controls2 = Controls.Find("textbox_" + i, true);
                                     foreach (Control control2 in controls2)
                                     {
-                                        OpenedName.Remove(flowLayoutPanel_input.Controls.GetChildIndex(control2)+1);
-                                        OpenedTag.Remove(flowLayoutPanel_input.Controls.GetChildIndex(control2)+1);
+                                        OpenedName.Remove(flowLayoutPanel_input.Controls.GetChildIndex(control2) + 1);
+                                        OpenedTag.Remove(flowLayoutPanel_input.Controls.GetChildIndex(control2) + 1);
                                         this.Controls.Remove(control2);
                                         control2.Dispose();
                                     }
                                     Control[] controls3 = Controls.Find("button_" + i, true);
                                     foreach (Control control3 in controls3)
                                     {
-                                        OpenedName.Remove(flowLayoutPanel_input.Controls.GetChildIndex(control3)+1);
-                                        OpenedTag.Remove(flowLayoutPanel_input.Controls.GetChildIndex(control3)+1);
+                                        OpenedName.Remove(flowLayoutPanel_input.Controls.GetChildIndex(control3) + 1);
+                                        OpenedTag.Remove(flowLayoutPanel_input.Controls.GetChildIndex(control3) + 1);
                                         this.Controls.Remove(control3);
                                         control3.Dispose();
                                     }
@@ -468,11 +490,11 @@ namespace eazyweb
                                 inputedCount = 1;
                                 flg = 5;
                                 ButtonVisible();
-                            }else if(result == DialogResult.No)
+                            } else if (result == DialogResult.No)
                             {
                                 break;
                             }
-                        }else if(control.Name == "link_" + addLinkCount)
+                        } else if (control.Name == "link_" + addLinkCount)
                         {
 
                         }
@@ -486,44 +508,44 @@ namespace eazyweb
                 }//flg==5削除
                 else if (flg == 7)
                 {
-                    
-                    
-                        //bodyグループ入れ替え処理
-                        switch (contflg)
-                        {   //選択回数
-                            //1回目
-                            case 0:
-                                name1 = name;   //一つ目の部品の名前を保持
-                                ctrl1 = cont;   //部品のコントロールを保持
-                                if(flowLayoutPanel_body.Visible == true)
-                                {
+
+
+                    //bodyグループ入れ替え処理
+                    switch (contflg)
+                    {   //選択回数
+                        //1回目
+                        case 0:
+                            name1 = name;   //一つ目の部品の名前を保持
+                            ctrl1 = cont;   //部品のコントロールを保持
+                            if (flowLayoutPanel_body.Visible == true)
+                            {
                                 cont1 = flowLayoutPanel_body.Controls.GetChildIndex(cont);  //Body部品のFlowLayoutPanelのインデックスを保持
-                                }else if(flowLayoutPanel_input.Visible == true)
-                                {
+                            } else if (flowLayoutPanel_input.Visible == true)
+                            {
                                 cont1 = flowLayoutPanel_input.Controls.GetChildIndex(cont);  //input部品のFlowLayoutPanelのインデックスを保持
-                                }
-                                
-                                contflg = 1;    //選択カウントを設定
-                                break;
-                            //二回目
-                            case 1:
-                                ctrl2 = cont;   //二つ目の部品の名前を保持
-                                if (flowLayoutPanel_body.Visible == true)
-                                {
-                                    cont2 = flowLayoutPanel_body.Controls.GetChildIndex(cont);  //Body部品のFlowLayoutPanelのインデックスを保持
-                                }
-                                else if (flowLayoutPanel_input.Visible == true)
-                                {
-                                    cont2 = flowLayoutPanel_input.Controls.GetChildIndex(cont);  //input部品のFlowLayoutPanelのインデックスを保持
-                                }
-                                SwapControls(cont1, cont2, ctrl1, ctrl2);       //入れ替えメソッドの実行
-                                contflg = 0;    //初期化
-                                break;
-                            default:
-                                break;
-                        }
-                    
-                    
+                            }
+
+                            contflg = 1;    //選択カウントを設定
+                            break;
+                        //二回目
+                        case 1:
+                            ctrl2 = cont;   //二つ目の部品の名前を保持
+                            if (flowLayoutPanel_body.Visible == true)
+                            {
+                                cont2 = flowLayoutPanel_body.Controls.GetChildIndex(cont);  //Body部品のFlowLayoutPanelのインデックスを保持
+                            }
+                            else if (flowLayoutPanel_input.Visible == true)
+                            {
+                                cont2 = flowLayoutPanel_input.Controls.GetChildIndex(cont);  //input部品のFlowLayoutPanelのインデックスを保持
+                            }
+                            SwapControls(cont1, cont2, ctrl1, ctrl2);       //入れ替えメソッドの実行
+                            contflg = 0;    //初期化
+                            break;
+                        default:
+                            break;
+                    }
+
+
                 }//flg==7入れ替え
             };
         }
@@ -542,31 +564,31 @@ namespace eazyweb
         {
             flg = 7;
             ButtonVisible();
-            
+
         }
         //---
 
         //---入れ替え処理メソッド
-        private void SwapControls(int x, int y ,Control ctrl1, Control ctrl2)
+        private void SwapControls(int x, int y, Control ctrl1, Control ctrl2)
         {
-            
+
 
             //入れ替え処理
-            if(flowLayoutPanel_body.Visible == true)
+            if (flowLayoutPanel_body.Visible == true)
             {
                 flowLayoutPanel_body.SuspendLayout();
                 flowLayoutPanel_body.Controls.SetChildIndex(ctrl1, y);
                 flowLayoutPanel_body.Controls.SetChildIndex(ctrl2, x);
                 flowLayoutPanel_body.ResumeLayout();
             }
-            else if(flowLayoutPanel_input.Visible == true)
+            else if (flowLayoutPanel_input.Visible == true)
             {
                 flowLayoutPanel_input.SuspendLayout();
                 flowLayoutPanel_input.Controls.SetChildIndex(ctrl1, y);
                 flowLayoutPanel_input.Controls.SetChildIndex(ctrl2, x);
                 flowLayoutPanel_input.ResumeLayout();
             }
-            
+
             //csv用入れ替え
             x++;
             y++;
@@ -578,15 +600,15 @@ namespace eazyweb
             OpenedName[x] = OpenedName[y];
             OpenedName[y] = tmp;
 
-            
+
         }
         //---
 
         //---インプット系部品のグループ化
         private void GroupingInput(int textCount, int buttonCount)
         {
-            DialogResult result = MessageBox.Show("ボタンやテキストボックスなどの部品をまとめますか？","Inputへのグループ化", MessageBoxButtons.YesNo);
-            if(result == DialogResult.Yes)
+            DialogResult result = MessageBox.Show("ボタンやテキストボックスなどの部品をまとめますか？", "Inputへのグループ化", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
                 inputedflg = 1;
                 inputflg = 1;
@@ -604,7 +626,7 @@ namespace eazyweb
                         }
                         inputedCount++;
                     }
-                    for (int i = buttonCount;i >= 1; i--) { 
+                    for (int i = buttonCount; i >= 1; i--) {
                         Control[] controls2 = this.flowLayoutPanel_body.Controls.Find(dic2["button_" + i], true);
                         foreach (Control control in controls2)
                         {
@@ -615,18 +637,18 @@ namespace eazyweb
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("対象部品が追加されていません。", "エラー",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show("対象部品が追加されていません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                       
-                
-                
-            }else if(result == DialogResult.No)
+
+
+
+            } else if (result == DialogResult.No)
             {
                 inputedflg = 0;
                 inputflg = 0;
             }
         }
-        
+
         //作業ファイルの保存リスナー＆処理
         private void button_save_Click(object sender, EventArgs e)
         {
@@ -637,7 +659,7 @@ namespace eazyweb
             saveFileDialog1.InitialDirectory = path + "\\CSV";
             MessageBox.Show(saveFileDialog1.InitialDirectory);
             //---
-            
+
             if (DialogResult.OK == saveFileDialog1.ShowDialog())
             {
                 // csvファイルのパス
@@ -665,8 +687,8 @@ namespace eazyweb
                     }
                     if (keyflag == 0)
                     {
-                        csv1[i] = OpenedTag[i+1];
-                        csv2[i] = OpenedName[i+1];
+                        csv1[i] = OpenedTag[i + 1];
+                        csv2[i] = OpenedName[i + 1];
                     }
                     else
                     {
@@ -679,22 +701,22 @@ namespace eazyweb
                 {
                     if (i == 0)
                     {
-                        file.WriteLine(string.Format("{0},{1},{2}", csv1[i], csv2[i],textTitle.Text)); //1-3にタイトルのテキストボックスの値を保存
-                    }else
+                        file.WriteLine(string.Format("{0},{1},{2}", csv1[i], csv2[i], textTitle.Text)); //1-3にタイトルのテキストボックスの値を保存
+                    } else
                     {
                         file.WriteLine(string.Format("{0},{1}", csv1[i], csv2[i])); // データ部出力
                     }
-                    
+
                 }
-                    
+
 
 
                 file.Close();
             }
-            
-            
+
+
         }
-        
+
         //作業ファイル開くリスナー
         private void button_open_Click(object sender, EventArgs e)
         {
@@ -705,7 +727,7 @@ namespace eazyweb
             openFileDialog1.Filter = "CSVファイル | *.csv";
             openFileDialog1.InitialDirectory = @"C:\Users\s3a2\Desktop";
             openFileDialog1.FileName = "";
-            if(DialogResult.OK == openFileDialog1.ShowDialog())
+            if (DialogResult.OK == openFileDialog1.ShowDialog())
             {
                 title = openFileDialog1.SafeFileName;
                 //---
@@ -736,7 +758,7 @@ namespace eazyweb
                 reader.Close();
                 OpenProcess();
             }
-            
+
         }
 
         //作業ファイルを開いたときの処理
@@ -751,7 +773,7 @@ namespace eazyweb
                 {
                     //
                     case "h1":
-                        AddTag(0,listName[lc]);
+                        AddTag(0, listName[lc]);
                         break;
                     case "div":
                         AddTag(1, listName[lc]);
@@ -786,7 +808,7 @@ namespace eazyweb
                 }
                 lc++;
             }
-            
+
         }
 
         //タグツリーの部品追加処理（通常時）
@@ -801,7 +823,7 @@ namespace eazyweb
                     Button button_h1 = new Button();                                                //新規ボタンのインスタンス                    //ボタンの配置場所の設定
                     button_h1.Size = new Size(122, 54);                                             //ボタンのサイズ
                     button_h1.ForeColor = Color.FromArgb(90, 92, 79);                               //ボタンの文字色の設定
-                    button_h1.BackColor = Color.FromArgb(211,214,195);                              //ボタンの背景色の設定
+                    button_h1.BackColor = Color.FromArgb(211, 214, 195);                              //ボタンの背景色の設定
                     button_h1.FlatStyle = FlatStyle.Flat;                                           //枠のスタイルの設定
                     button_h1.FlatAppearance.BorderSize = 0;                                        //枠なしに設定
                     button_h1.Text = "<H1>";                                                        //ボタンのテキスト
@@ -973,7 +995,7 @@ namespace eazyweb
                     button_Input.ForeColor = Color.FromArgb(90, 92, 79);
                     button_Input.BackColor = Color.FromArgb(211, 214, 195);
                     button_Input.FlatStyle = FlatStyle.Flat;
-                    button_Input.FlatAppearance.BorderSize = 0; 
+                    button_Input.FlatAppearance.BorderSize = 0;
                     button_Input.Text = "<INPUT>";
                     button_Input.Font = new Font("MS UI Gothic", 18, FontStyle.Bold);
                     button_Input.Name = "input_" + addInputCount;
@@ -1045,7 +1067,7 @@ namespace eazyweb
             }
         }
         //タグツリーの部品追加処理（作業ファイルを開いたとき）
-        private void AddTag(int Index,String name)
+        private void AddTag(int Index, String name)
         {
             //タグツリーのBODYグループに部品のボタンを追加
             switch (Index)
@@ -1299,5 +1321,9 @@ namespace eazyweb
                     break;
             }
         }
+
     }
 }
+
+
+
