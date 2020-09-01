@@ -1,0 +1,10 @@
+C:\Users\s3a2\source\repos\eazyweb\eazyweb\bin\Release\eazyweb.exe.config
+C:\Users\s3a2\source\repos\eazyweb\eazyweb\bin\Release\eazyweb.exe
+C:\Users\s3a2\source\repos\eazyweb\eazyweb\bin\Release\eazyweb.pdb
+C:\Users\s3a2\source\repos\eazyweb\eazyweb\obj\Release\eazyweb.csprojAssemblyReference.cache
+C:\Users\s3a2\source\repos\eazyweb\eazyweb\obj\Release\eazyweb.Form1.resources
+C:\Users\s3a2\source\repos\eazyweb\eazyweb\obj\Release\eazyweb.Properties.Resources.resources
+C:\Users\s3a2\source\repos\eazyweb\eazyweb\obj\Release\eazyweb.csproj.GenerateResource.cache
+C:\Users\s3a2\source\repos\eazyweb\eazyweb\obj\Release\eazyweb.csproj.CoreCompileInputs.cache
+C:\Users\s3a2\source\repos\eazyweb\eazyweb\obj\Release\eazyweb.exe
+C:\Users\s3a2\source\repos\eazyweb\eazyweb\obj\Release\eazyweb.pdb

@@ -53,6 +53,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.eventLog1 = new System.Diagnostics.EventLog();
             this.button_open = new System.Windows.Forms.Button();
+            this.textTitle = new System.Windows.Forms.TextBox();
             this.group_tag.SuspendLayout();
             this.groupHead.SuspendLayout();
             this.groupBody.SuspendLayout();
@@ -347,11 +348,20 @@
             this.button_open.UseVisualStyleBackColor = true;
             this.button_open.Click += new System.EventHandler(this.button_open_Click);
             // 
+            // textTitle
+            // 
+            this.textTitle.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textTitle.Location = new System.Drawing.Point(411, 170);
+            this.textTitle.Name = "textTitle";
+            this.textTitle.Size = new System.Drawing.Size(290, 31);
+            this.textTitle.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1684, 1031);
+            this.Controls.Add(this.textTitle);
             this.Controls.Add(this.button_open);
             this.Controls.Add(this.button_save);
             this.Controls.Add(this.listItem);
@@ -368,6 +378,7 @@
             this.groupInput.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -396,6 +407,7 @@
         private System.Diagnostics.EventLog eventLog1;
         private System.Windows.Forms.Button button_open;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_head;
+        private System.Windows.Forms.TextBox textTitle;
     }
 }
 

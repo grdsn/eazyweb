@@ -67,15 +67,17 @@ namespace eazyweb
         //作業状態系
         List<string> listTag = new List<string>();
         List<string> listName = new List<string>();
+        List<string> listTitle = new List<string>();    //タイトル用に追加2020/09/01
 
-        //ボタンイベントの有無
-        public Boolean button_event = false;
+        //起動ファイルのパス取得
+        private String path = Directory.GetCurrentDirectory();
 
         private void Reset()
         {
             this.flowLayoutPanel_body.Controls.Clear();
             this.flowLayoutPanel_head.Controls.Clear();
             this.flowLayoutPanel_input.Controls.Clear();
+            textTitle.Text = "";
 
             //画面フラグ
             flg = 0;
@@ -132,12 +134,9 @@ namespace eazyweb
             listTag.Clear();
             listName.Clear();
 
-            //ボタンイベントの有無
-            button_event = false;
-
         }
 
-    public Form1()
+        public Form1()
         {
             InitializeComponent();
         }
@@ -248,12 +247,6 @@ namespace eazyweb
             flg = 1;
             ButtonVisible();
         }
-
-        private void button_head2_Click(object sender, EventArgs e)
-        {
-            flg = 1;
-            ButtonVisible();
-        }
         //---
 
         //---タグツリーのタグツリーのBODYボタン処理
@@ -302,6 +295,8 @@ namespace eazyweb
             tt.SetToolTip(button_html, "全体");
             tt.SetToolTip(button_head1, "<head>部分");
             tt.SetToolTip(button_body1, "<body>部分");
+
+            
         }
         //---
 
@@ -345,38 +340,39 @@ namespace eazyweb
                     {
                         switch (getkind)
                         {
-                            /* プロパティ系
+                            //プロパティ系
                             case "h1":
-                                property_text.Text = "class :" + name;
+                                //property_text.Text = "class :" + name;
                                 break;
                             case "div":
-                                property_text.Text = "class :" + name;
+                                //property_text.Text = "class :" + name;
                                 break;
                             case "table":
-                                property_text.Text = "class :" + name;
+                                //property_text.Text = "class :" + name;
                                 break;
                             case "img":
-                                property_text.Text = "class :" + name;
+                                //property_text.Text = "class :" + name;
                                 break;
                             case "url":
-                                property_text.Text = "class :" + name;
+                                //urlの編集がしたい
+                                //property_text.Text = "class :" + name;
                                 break;
                             case "textbox":
-                                property_text.Text = "class :" + name;
+                                //property_text.Text = "class :" + name;
                                 break;
                             case "button":
-                                property_text.Text = "class :" + name;
+                                //property_text.Text = "class :" + name;
                                 break;
                             case "nav":
-                                property_text.Text = "class :" + name;
-                                break;*/
+                                //property_text.Text = "class :" + name;
+                                break;
                             case "input":   //<input>部品を押したらgroup_inputに切り替え
                                 flg = 8;
                                 ButtonVisible();
                                 break;
-                            /*case "small":
-                                property_text.Text = "class :" + name;
-                                break;*/
+                            case "small":
+                                //property_text.Text = "class :" + name;
+                                break;
                             default:
                                 break;
                         }
@@ -638,51 +634,64 @@ namespace eazyweb
             saveFileDialog1.DefaultExt = "csv";
             saveFileDialog1.Filter = "CSVファイル | *.csv";
             saveFileDialog1.AddExtension = true;
-            saveFileDialog1.InitialDirectory = @"C:\Users\s3a2\Desktop";
+            saveFileDialog1.InitialDirectory = path + "\\CSV";
+            MessageBox.Show(saveFileDialog1.InitialDirectory);
             //---
-
-            saveFileDialog1.ShowDialog();
-            // csvファイルのパス
-            var filePath = saveFileDialog1.FileName;
-            //var filePath = @"C:\Users\s3a2\Desktop\"+title+".csv";   //パスは変える (作業ファイル名.csv)
-            // csvに出力するデータ
-            for(int i =0;i < OpenedTag.Count; i++)
+            
+            if (DialogResult.OK == saveFileDialog1.ShowDialog())
             {
-                int keyflag = 0;
-                Array.Resize(ref csv1, csv1.Length + 1);
-                Array.Resize(ref csv2, csv2.Length + 1);
-                foreach(var key in OpenedTag.Keys)
+                // csvファイルのパス
+                var filePath = saveFileDialog1.FileName;
+                //var filePath = path + "/CSV";   //パスは変える (作業ファイル名.csv)
+                // csvに出力するデータ
+                for (int i = 0; i < OpenedTag.Count; i++)
                 {
-                    if(addLinkCount > 0)
+                    int keyflag = 0;
+                    Array.Resize(ref csv1, csv1.Length + 1);
+                    Array.Resize(ref csv2, csv2.Length + 1);
+                    foreach (var key in OpenedTag.Keys)
                     {
-                        keyflag = 1;
-                        int tmp = i;
-                        i += 1000;
-                        csv1[i-1000] = OpenedTag[i];
-                        csv2[i-1000] = OpenedName[i];
-                        i = tmp;
-                        addLinkCount--;
-                        break;
+                        if (addLinkCount > 0)
+                        {
+                            keyflag = 1;
+                            int tmp = i;
+                            i += 1000;
+                            csv1[i - 1000] = OpenedTag[i];
+                            csv2[i - 1000] = OpenedName[i];
+                            i = tmp;
+                            addLinkCount--;
+                            break;
+                        }
+                    }
+                    if (keyflag == 0)
+                    {
+                        csv1[i] = OpenedTag[i+1];
+                        csv2[i] = OpenedName[i+1];
+                    }
+                    else
+                    {
+                        keyflag = 0;
                     }
                 }
-                if(keyflag == 0)
+                // csvファイルの書き込み
+                StreamWriter file = new StreamWriter(filePath, false, Encoding.UTF8);
+                for (int i = 0; i < csv1.Length; i++)
                 {
-                    csv1[i] = OpenedTag[i];
-                    csv2[i] = OpenedName[i];
-                }else
-                {
-                    keyflag = 0;
+                    if (i == 0)
+                    {
+                        file.WriteLine(string.Format("{0},{1},{2}", csv1[i], csv2[i],textTitle.Text)); //1-3にタイトルのテキストボックスの値を保存
+                    }else
+                    {
+                        file.WriteLine(string.Format("{0},{1}", csv1[i], csv2[i])); // データ部出力
+                    }
+                    
                 }
-                
-            }
-            // csvファイルの書き込み
-            StreamWriter file = new StreamWriter(filePath,false,Encoding.UTF8);
-            for (int i = 0; i <csv1.Length; i++)
-            
-                file.WriteLine(string.Format("{0},{1}", csv1[i],csv2[i])); // データ部出力
-            
+                    
 
-            file.Close();
+
+                file.Close();
+            }
+            
             
         }
         
@@ -696,34 +705,44 @@ namespace eazyweb
             openFileDialog1.Filter = "CSVファイル | *.csv";
             openFileDialog1.InitialDirectory = @"C:\Users\s3a2\Desktop";
             openFileDialog1.FileName = "";
-            openFileDialog1.ShowDialog();
-            title = openFileDialog1.SafeFileName;
-            //---
-
-            // csvファイルのパス
-            var filePath = openFileDialog1.FileName;
-            //var filePath = @"C:\Users\s3a2\Desktop\" + title + ".csv";
-
-            // csvファイルの読込
-            StreamReader reader = new StreamReader(File.OpenRead(filePath));
-            
-            while (!reader.EndOfStream)
+            if(DialogResult.OK == openFileDialog1.ShowDialog())
             {
-                var line = reader.ReadLine();
-                var values = line.Split(',');
+                title = openFileDialog1.SafeFileName;
+                //---
 
-                listTag.Add(values[0]);
-                listName.Add(values[1]);
-                
+                // csvファイルのパス
+                var filePath = openFileDialog1.FileName;
+                //var filePath = @"C:\Users\s3a2\Desktop\" + title + ".csv";
+
+                // csvファイルの読込
+                StreamReader reader = new StreamReader(File.OpenRead(filePath));
+                //タイトル取得用フラグ
+                int tflg = 0;
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    listTag.Add(values[0]);
+                    listName.Add(values[1]);
+
+                    //タイトルの取得
+                    if (tflg == 0)
+                    {
+                        listTitle.Add(values[2]);
+                        tflg++;
+                    }
+                }
+                reader.Close();
+                OpenProcess();
             }
             
-            reader.Close();
-            OpenProcess();
         }
 
         //作業ファイルを開いたときの処理
         private void OpenProcess()
         {
+            textTitle.Text = listTitle[0];
             int lc = 0;
             while (lc != listTag.Count)
             {
