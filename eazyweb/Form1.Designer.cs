@@ -51,14 +51,15 @@
             this.button_save = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.eventLog1 = new System.Diagnostics.EventLog();
             this.button_open = new System.Windows.Forms.Button();
             this.textTitle = new System.Windows.Forms.TextBox();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.eventLog = new System.Diagnostics.EventLog();
             this.group_tag.SuspendLayout();
             this.groupHead.SuspendLayout();
             this.groupBody.SuspendLayout();
             this.groupInput.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eventLog)).BeginInit();
             this.SuspendLayout();
             // 
             // imageList1
@@ -83,7 +84,7 @@
             this.group_tag.Controls.Add(this.button_head1);
             this.group_tag.Controls.Add(this.button_body2);
             this.group_tag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.group_tag.Location = new System.Drawing.Point(24, 473);
+            this.group_tag.Location = new System.Drawing.Point(24, 422);
             this.group_tag.Name = "group_tag";
             this.group_tag.Size = new System.Drawing.Size(355, 546);
             this.group_tag.TabIndex = 3;
@@ -332,12 +333,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // eventLog1
-            // 
-            this.eventLog1.EnableRaisingEvents = true;
-            this.eventLog1.Log = "Application";
-            this.eventLog1.SynchronizingObject = this;
-            // 
             // button_open
             // 
             this.button_open.Location = new System.Drawing.Point(411, 58);
@@ -351,16 +346,31 @@
             // textTitle
             // 
             this.textTitle.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textTitle.Location = new System.Drawing.Point(411, 170);
+            this.textTitle.Location = new System.Drawing.Point(270, 104);
             this.textTitle.Name = "textTitle";
             this.textTitle.Size = new System.Drawing.Size(290, 31);
             this.textTitle.TabIndex = 10;
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Location = new System.Drawing.Point(411, 221);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(442, 396);
+            this.webBrowser1.TabIndex = 12;
+            // 
+            // eventLog
+            // 
+            this.eventLog.Log = "Application";
+            this.eventLog.MachineName = "KCSF0438";
+            this.eventLog.SynchronizingObject = this;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1684, 1031);
+            this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.textTitle);
             this.Controls.Add(this.button_open);
             this.Controls.Add(this.button_save);
@@ -376,7 +386,7 @@
             this.groupHead.ResumeLayout(false);
             this.groupBody.ResumeLayout(false);
             this.groupInput.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eventLog)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -404,10 +414,11 @@
         private System.Windows.Forms.Button button_save;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Diagnostics.EventLog eventLog1;
         private System.Windows.Forms.Button button_open;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_head;
         private System.Windows.Forms.TextBox textTitle;
+        private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Diagnostics.EventLog eventLog;
     }
 }
 

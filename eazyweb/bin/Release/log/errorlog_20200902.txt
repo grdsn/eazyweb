@@ -1,0 +1,16 @@
+﻿[2020/09/02 11:33:57] message: インデックスが配列の境界外です。
+[2020/09/02 11:33:57] stack trace:    場所 eazyweb.Form1.button_open_Click(Object sender, EventArgs e) 場所 C:\Users\s3a2\source\repos\eazyweb\eazyweb\Form1.cs:行 804
+   場所 eazyweb.Form1.button_open_Click(Object sender, EventArgs e) 場所 C:\Users\s3a2\source\repos\eazyweb\eazyweb\Form1.cs:行 804
+
+[2020/09/02 11:33:58] message: インデックスが配列の境界外です。
+[2020/09/02 11:33:58] stack trace:    場所 eazyweb.Form1.button_open_Click(Object sender, EventArgs e) 場所 C:\Users\s3a2\source\repos\eazyweb\eazyweb\Form1.cs:行 804
+   場所 eazyweb.Form1.button_open_Click(Object sender, EventArgs e) 場所 C:\Users\s3a2\source\repos\eazyweb\eazyweb\Form1.cs:行 804
+
+[2020/09/02 11:34:04] message: インデックスが配列の境界外です。
+[2020/09/02 11:34:04] stack trace:    場所 eazyweb.Form1.button_open_Click(Object sender, EventArgs e) 場所 C:\Users\s3a2\source\repos\eazyweb\eazyweb\Form1.cs:行 804
+   場所 eazyweb.Form1.button_open_Click(Object sender, EventArgs e) 場所 C:\Users\s3a2\source\repos\eazyweb\eazyweb\Form1.cs:行 804
+
+[2020/09/02 11:34:28] message: インデックスが配列の境界外です。
+[2020/09/02 11:34:28] stack trace:    場所 eazyweb.Form1.button_open_Click(Object sender, EventArgs e) 場所 C:\Users\s3a2\source\repos\eazyweb\eazyweb\Form1.cs:行 804
+   場所 eazyweb.Form1.button_open_Click(Object sender, EventArgs e) 場所 C:\Users\s3a2\source\repos\eazyweb\eazyweb\Form1.cs:行 804
+
